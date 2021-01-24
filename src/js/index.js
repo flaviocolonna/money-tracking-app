@@ -6,8 +6,8 @@
     context.removeOperation = function (id) {
         wallet.removeOperation(id);
     }
-    context.findOperation = function() {
-
+    context.findOperation = function(val) {
+        return wallet.findOperation(val);
     }
     context.getBalance = function() {
         return wallet.getBalance();
