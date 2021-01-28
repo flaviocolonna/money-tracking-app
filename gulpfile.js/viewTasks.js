@@ -12,6 +12,12 @@ const compileIndex = function() {
         .pipe(gulp.dest("./dist"));
 }
 
+const watchIndex = function(cb) {
+    gulp.watch("./src/index.html", compileIndex);
+    cb();
+}
+
 module.exports = {
-    compileIndex: compileIndex
+    compileIndex: compileIndex,
+    watchIndex: watchIndex
 }
