@@ -1,15 +1,16 @@
 const gulp = require("gulp");
+const paths = require("./paths");
 
 const copyJs = function() {
-    const jsIndex = "./src/js/index.js";
-    const utilsIndex = "./src/js/utils.js";
-    const modelsIndex = "./src/js/models/Wallet.js";
-    return gulp.src([jsIndex, utilsIndex, modelsIndex], { base: "./src" })
-        .pipe(gulp.dest("./dist"));
+    const jsIndex = paths.getJsEntryPath();
+    const utilsIndex = paths.getJsSrcPath("/utils.js");
+    const modelsIndex = paths.getJsSrcPath("/models/Wallet.js");
+    return gulp.src([jsIndex, utilsIndex, modelsIndex], { base: paths.getSrcFolder() })
+        .pipe(gulp.dest(paths.getDistFolder()));
 };
 
 const watchJS = function(cb) {
-    gulp.watch("./src/js/**/*", copyJs);
+    gulp.watch(paths.getJsSrcPath("/**/*"), copyJs);
     cb();
 };
 
