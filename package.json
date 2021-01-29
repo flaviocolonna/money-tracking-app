@@ -24,6 +24,7 @@
   "homepage": "https://github.com/flaviocolonna/money-tracking-app#readme",
   "dependencies": {},
   "devDependencies": {
+    "browser-sync": "^2.26.14",
     "gulp": "^4.0.2",
     "gulp-inject": "^5.0.5"
   }
