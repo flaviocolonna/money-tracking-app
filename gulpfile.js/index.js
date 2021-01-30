@@ -11,7 +11,7 @@ const clean = function(cb) {
     cb();
 }
 
-const dev = series(clean, viewTasks.compileIndex, jsTasks.copyJs, jsTasks.watchJS, viewTasks.watchIndex, serveTasks.serve);
+const dev = series(clean, viewTasks.compileIndex, jsTasks.bundleJS, jsTasks.watchJS, viewTasks.watchIndex, serveTasks.serve);
 
 module.exports = {
     dev: dev
