@@ -19,3 +19,9 @@ function getWallet() {
     }
     return JSON.parse(wallet);
 }
+
+module.exports = {
+    getWallet: getWallet,
+    isValidOperation: isValidOperation,
+    findIndex: findIndex
+}
