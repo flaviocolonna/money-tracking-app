@@ -5,6 +5,7 @@ const buffer = require("vinyl-buffer");
 const args = require("yargs");
 const uglify = require("gulp-uglify");
 const gulpIf = require("gulp-if");
+const sourcemaps = require("gulp-sourcemaps");
 const paths = require("./paths");
 
 const bundleJS = function() {
@@ -14,13 +15,16 @@ const bundleJS = function() {
 
 const browserifyBundle = function() {
     const prod = args.argv;
+    const debug = args.argv;
     return browserify({
         entries: paths.getJsEntryPath()
     })
         .bundle()
         .pipe(source(paths.getJSOutputEntry()))
         .pipe(buffer())
-        .pipe(gulpIf(prod, uglify()));
+        .pipe(gulpIf(debug, sourcemaps.init()))
+        .pipe(gulpIf(prod, uglify()))
+        .pipe(gulpIf(debug, sourcemaps.write("./")));
 }
 
 const watchJS = function(cb) {

@@ -4,7 +4,8 @@ const paths = require('./paths');
 
 const serve = function(cb) {
     const prod = args.argv;
-    if(prod) {
+    const debug = args.argv;
+    if(prod && !debug) {
         return cb();
     }
     browserSync.init({
