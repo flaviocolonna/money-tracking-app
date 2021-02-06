@@ -76,5 +76,6 @@ function Wallet() {
 
 module.exports = {
     Wallet: Wallet,
-    WalletErrors: WalletErrors
+    WalletErrors: WalletErrors,
+    OpType: OpType
 }
