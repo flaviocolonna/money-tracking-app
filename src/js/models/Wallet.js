@@ -50,10 +50,9 @@ function Wallet() {
         const val = searchValue.toLowerCase().trim();
         const operationsFound = [];
         for(var i = 0; i < operations.length; i++) {
-            var description = operations[i].description.toLowerCase();
+            const description = operations[i].description.toLowerCase();
             if(description.indexOf(val) > -1) {
                 operationsFound.push(operations[i]);
-                break;
             }
         }
         return operationsFound;
