@@ -1,13 +1,6 @@
 const utilsTasks = require("../utils");
+const WalletEnums = require("./enums");
 
-const OpType = Object.freeze({
-    OUT: 'OUT',
-    IN: 'IN'
-});
-const WalletErrors = Object.freeze({
-    INVALID_OPERATION: 'INVALID_OPERATION',
-    OPERATION_NOT_FOUND: 'OPERATION_NOT_FOUND'
-});
 function Wallet() {
     let balance = 0;
     let operations = [];
@@ -21,7 +14,7 @@ function Wallet() {
     }
     this.addOperation = function(op) {
         if(!utilsTasks.isValidOperation(op)) {
-            throw new Error(WalletErrors.INVALID_OPERATION);
+            throw new Error(WalletEnums.WalletErrors.INVALID_OPERATION);
         }
         const operation = {
             amount: parseFloat(op.amount),
@@ -29,9 +22,9 @@ function Wallet() {
             type: op.type,
             date: new Date().getTime()
         }
-        if(op.type === OpType.IN) {
+        if(op.type === WalletEnums.OpType.IN) {
             balance += operation.amount;
-        } else if(op.type === OpType.OUT) {
+        } else if(op.type === WalletEnums.OpType.OUT) {
             balance -= operation.amount;
         }
         operations.push(operation);
@@ -42,12 +35,12 @@ function Wallet() {
             return operation.date === id;
         });
         if(operationIndex === -1) {
-            throw new Error(WalletErrors.OPERATION_NOT_FOUND);
+            throw new Error(WalletEnums.WalletErrors.OPERATION_NOT_FOUND);
         }
         const operation = operations[operationIndex];
-        if(operation.type === OpType.IN) {
+        if(operation.type === WalletEnums.OpType.IN) {
             balance -= operation.amount;
-        } else if(operation.type === OpType.OUT) {
+        } else if(operation.type === WalletEnums.OpType.OUT) {
             balance += operation.amount;
         }
         operations.splice(operationIndex, 1);
@@ -75,7 +68,5 @@ function Wallet() {
 }
 
 module.exports = {
-    Wallet: Wallet,
-    WalletErrors: WalletErrors,
-    OpType: OpType
+    Wallet: Wallet
 }
