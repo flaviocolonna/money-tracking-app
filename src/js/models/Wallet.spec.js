@@ -35,7 +35,7 @@ describe("Wallet testing suite", function () {
         const wallet = new WalletModule.Wallet();
         wallet.addOperation(mockedStructures.incomeOperation);
         const lastOperationAdded = wallet.getOperations()[0];
-        wallet.removeOperation(lastOperationAdded.date);
+        wallet.removeOperation(lastOperationAdded.id);
         expect(wallet.getBalance()).toBe(0);
         expect(wallet.getOperations().length).toBe(0);
     });
@@ -43,7 +43,7 @@ describe("Wallet testing suite", function () {
         const wallet = new WalletModule.Wallet();
         wallet.addOperation(mockedStructures.outOperation);
         const lastOperationAdded = wallet.getOperations()[0];
-        wallet.removeOperation(lastOperationAdded.date);
+        wallet.removeOperation(lastOperationAdded.id);
         expect(wallet.getBalance()).toBe(0);
         expect(wallet.getOperations().length).toBe(0);
     });
