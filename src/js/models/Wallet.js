@@ -17,6 +17,7 @@ function Wallet() {
             throw new Error(WalletEnums.WalletErrors.INVALID_OPERATION);
         }
         const operation = {
+            id: new Date().getTime(),
             amount: parseFloat(op.amount),
             description: op.description.trim(),
             type: op.type,
@@ -32,7 +33,7 @@ function Wallet() {
     }
     this.removeOperation = function(id) {
         const operationIndex = utilsTasks.findIndex(operations, function(operation) {
-            return operation.date === id;
+            return operation.id === id;
         });
         if(operationIndex === -1) {
             throw new Error(WalletEnums.WalletErrors.OPERATION_NOT_FOUND);
