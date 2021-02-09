@@ -1,3 +1,5 @@
+const WalletEnums = require("./models/enums");
+
 function findIndex(list, cb) {
     for(var i = 0; i < list.length; i++) {
         if(cb(list[i])) {
@@ -7,7 +9,7 @@ function findIndex(list, cb) {
     return -1;
 }
 function isValidOperation(op) {
-    return op && op.description && parseFloat(op.amount) > 0 && typeof OpType[op.type] !== 'undefined';
+    return op && op.description && parseFloat(op.amount) > 0 && typeof WalletEnums.OpType[op.type] !== 'undefined';
 }
 function getWallet() {
     const wallet = localStorage.getItem('wallet');
