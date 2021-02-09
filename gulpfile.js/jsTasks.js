@@ -2,11 +2,14 @@ const gulp = require("gulp");
 const browserify = require("browserify");
 const source = require("vinyl-source-stream");
 const buffer = require("vinyl-buffer");
-const args = require("yargs");
 const uglify = require("gulp-uglify");
 const gulpIf = require("gulp-if");
 const sourcemaps = require("gulp-sourcemaps");
 const paths = require("./paths");
+const gulpIf = require("gulp-if");
+const sourcemaps = require("gulp-sourcemaps");
+const uglify = require("gulp-uglify");
+const args = require("yargs").argv;
 
 const bundleJS = function() {
     return browserifyBundle()
@@ -14,8 +17,8 @@ const bundleJS = function() {
 };
 
 const browserifyBundle = function() {
-    const prod = args.argv;
-    const debug = args.argv;
+    const prod = args.prod;
+    const debug = args.debug;
     return browserify({
         entries: paths.getJsEntryPath()
     })
@@ -28,7 +31,7 @@ const browserifyBundle = function() {
 }
 
 const watchJS = function(cb) {
-    const prod = args.argv;
+    const prod = args.prod;
     if(prod) {
         return cb();
     }
