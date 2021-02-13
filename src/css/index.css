@@ -1,0 +1,18 @@
+header {
+    background: #fafafa;
+}
+header .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 56px;
+}
+header h1, header p {
+    margin: 0;
+}
+header h1 {
+    font-size: 16px;
+}
