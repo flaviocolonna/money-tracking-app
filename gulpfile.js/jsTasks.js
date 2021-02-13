@@ -6,9 +6,6 @@ const uglify = require("gulp-uglify");
 const gulpIf = require("gulp-if");
 const sourcemaps = require("gulp-sourcemaps");
 const paths = require("./paths");
-const gulpIf = require("gulp-if");
-const sourcemaps = require("gulp-sourcemaps");
-const uglify = require("gulp-uglify");
 const args = require("yargs").argv;
 
 const bundleJS = function() {
