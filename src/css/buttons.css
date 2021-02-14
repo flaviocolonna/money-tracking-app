@@ -1,0 +1,11 @@
+.button-icon {
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    transition: background-size ease .3s;
+    margin: 0;
+}
+.button-icon:hover {
+    background-size: 30px;
+}

@@ -21,8 +21,34 @@
             </div>
         </div>
     </header>
-    <main>
-
+    <main class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <button class="u-pull-right">New operation</button>
+            </div>
+        </div>
+        <!-- Start Table container -->
+        <div class="row">
+            <table class="u-full-width">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-op-type="expense">
+                        <td>Electricity bill</td>
+                        <td class="operation-amount">€ 200</td>
+                        <td>12/10/2020</td>
+                        <td><button class="button button-icon icon-delete"></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- End Table container -->
     </main>
     <footer>
 

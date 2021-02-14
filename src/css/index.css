@@ -16,3 +16,12 @@ header h1, header p {
 header h1 {
     font-size: 16px;
 }
+main.container {
+    margin-top: 24px;
+}
+tr[data-op-type="expense"] .operation-amount {
+    color: red;
+}
+tr[data-op-type="income"] .operation-amount {
+    color: green;
+}
