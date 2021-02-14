@@ -12,7 +12,7 @@ const clean = function(cb) {
     cb();
 }
 
-const build = series(clean, viewTasks.compileIndex, assetsTasks.processCSS, assetsTasks.watchCSS, jsTasks.bundleJS, jsTasks.watchJS, viewTasks.watchIndex, serveTasks.serve);
+const build = series(clean, viewTasks.compileIndex, assetsTasks.processIcons, assetsTasks.watchIcons, assetsTasks.processCSS, assetsTasks.watchCSS, jsTasks.bundleJS, jsTasks.watchJS, viewTasks.watchIndex, serveTasks.serve);
 
 module.exports = {
     build: build

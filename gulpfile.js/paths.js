@@ -16,6 +16,10 @@ const paths = {
         entry: "index.css",
         base: "css",
         dist: "css"
+    },
+    icons: {
+        base: "icons",
+        dist: "icons"
     }
 }
 
@@ -60,5 +64,12 @@ module.exports = {
     },
     getCSSOutputPath: function() {
         return this.getDistFolder() + '/' + paths.css.dist;
+    },
+    getIconsSrcPath: function(innerPath) {
+        const baseIconsPath = paths.global.src + '/' + paths.icons.base;
+        if(innerPath) {
+            return baseIconsPath + '/' + innerPath;
+        }
+        return baseIconsPath;
     },
 }

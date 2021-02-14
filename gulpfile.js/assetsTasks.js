@@ -3,6 +3,7 @@ const gulpIf = require("gulp-if");
 const args = require("yargs").argv;
 const minifyCSS = require("gulp-minify-css");
 const concat = require("gulp-concat");
+const svgmin = require("gulp-svgmin");
 const paths = require("./paths");
 
 const processCSS = function () {
@@ -15,14 +16,30 @@ const processCSS = function () {
 
 const watchCSS = function (cb) {
     const prod = args.prod;
-    if(prod) {
+    if (prod) {
         return cb();
     }
     gulp.watch(paths.getCSSSrcPath("**/*"), processCSS);
     cb();
 }
 
+const processIcons = function () {
+    return gulp.src(paths.getIconsSrcPath("**/*.svg"), { relative: true, base: paths.getSrcFolder() })
+        .pipe(svgmin())
+        .pipe(gulp.dest(paths.getDistFolder()));
+}
+const watchIcons = function (cb) {
+    const prod = args.prod;
+    if (prod) {
+        return cb();
+    }
+    gulp.watch(paths.getIconsSrcPath("**/*"), processIcons);
+    cb();
+}
+
 module.exports = {
     processCSS: processCSS,
-    watchCSS: watchCSS
+    watchCSS: watchCSS,
+    processIcons: processIcons,
+    watchIcons: watchIcons,
 }
