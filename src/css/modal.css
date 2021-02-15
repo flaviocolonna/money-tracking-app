@@ -10,6 +10,10 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    transition: all ease .5s;
+}
+.modal.hide {
+    opacity: 0;
 }
 .modal__header__action {
     position: absolute;
