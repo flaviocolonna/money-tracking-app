@@ -3,9 +3,19 @@
     background-repeat: no-repeat;
     background-position: center;
     border: none;
-    transition: background-size ease .3s;
     margin: 0;
 }
-.button-icon:hover {
+.button-animated {
+    transition: background-size ease .3s;
+}
+.button-animated:hover {
     background-size: 30px;
+}
+.button-error {
+    color: red;
+    border-color: red;
+}
+.button-success {
+    color: green;
+    border-color: green;
 }
