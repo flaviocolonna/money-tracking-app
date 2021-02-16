@@ -1,3 +1,9 @@
 .no-margin {
     margin: 0;
 }
+.mt-2 {
+    margin-top: 2rem;
+}
+.align-text-center {
+    text-align: center;
+}

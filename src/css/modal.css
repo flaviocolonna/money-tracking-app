@@ -14,6 +14,7 @@
 }
 .modal.hide {
     opacity: 0;
+    visibility: hidden;
 }
 .modal__header__action {
     position: absolute;

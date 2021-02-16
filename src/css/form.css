@@ -7,3 +7,22 @@ form .custom-input {
     border-radius: 0;
     border-bottom: 1px solid #989898;
 }
+.custom-input-container {
+    position: relative;
+    width: 250px;
+}
+.custom-input-container input {
+    width: 250px;
+}
+.custom-input-container .button-icon {
+    position: absolute;
+    right: 0;
+    padding: 0 16px;
+    border: 1px solid #D1D1D1;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    display: inline-block;
+    vertical-align: middle;
+}

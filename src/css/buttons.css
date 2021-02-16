@@ -4,6 +4,7 @@
     background-position: center;
     border: none;
     margin: 0;
+    padding: 0 12px;
 }
 .button-animated {
     transition: background-size ease .3s;
