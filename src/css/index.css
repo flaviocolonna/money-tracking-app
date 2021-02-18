@@ -1,4 +1,4 @@
-header {
+header, footer {
     background: #fafafa;
 }
 header .content {
@@ -11,16 +11,13 @@ header .content {
     height: 56px;
     padding: 0 20px;
 }
-@media (min-width: 400px) {
-    header .content {
-        padding: 0;
-        width: 85%;
-    }
+footer {
+    height: 56px;
 }
-@media (min-width: 550px) {
-    header .content {
-        width: 80%;
-    }
+footer .container {
+    display: flex;
+    height: 100%;
+    align-items: center;
 }
 header h1, header p {
     margin: 0;
@@ -29,6 +26,7 @@ header h1 {
     font-size: 16px;
 }
 main.container {
+    min-height: calc(100vh - 136px);
     margin-top: 24px;
 }
 table {
@@ -39,4 +37,15 @@ tr[data-op-type="expense"] .operation-amount {
 }
 tr[data-op-type="income"] .operation-amount {
     color: var(--success-color);
+}
+@media (min-width: 400px) {
+    header .content {
+        padding: 0;
+        width: 85%;
+    }
+}
+@media (min-width: 550px) {
+    header .content {
+        width: 80%;
+    }
 }
