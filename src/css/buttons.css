@@ -20,10 +20,18 @@
     color: var(--success-color);
     border-color: var(--success-color);
 }
-.button-float {
+.button-float-container {
     position: fixed;
+    text-align: right;
     bottom: 16px;
-    right: 16px;
+    padding: 0;
+}
+@media (max-width: 400px) {
+    .button-float-container {
+        right: 16px;
+    }
+}
+.button-float {
     width: 56px;
     height: 56px;
     border-radius: 100px;
