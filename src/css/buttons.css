@@ -22,10 +22,10 @@
 }
 .button-float {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 48px;
-    height: 48px;
+    bottom: 16px;
+    right: 16px;
+    width: 56px;
+    height: 56px;
     border-radius: 100px;
     padding: 0;
     border: 1px solid var(--primary-color);
