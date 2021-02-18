@@ -1,0 +1,51 @@
+header, footer {
+    background: #fafafa;
+}
+header .content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 56px;
+    padding: 0 20px;
+}
+footer {
+    height: 56px;
+}
+footer .container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+header h1, header p {
+    margin: 0;
+}
+header h1 {
+    font-size: 16px;
+}
+main.container {
+    min-height: calc(100vh - 136px);
+    margin-top: 24px;
+}
+table {
+    table-layout: fixed;
+}
+tr[data-op-type="expense"] .operation-amount {
+    color: red;
+}
+tr[data-op-type="income"] .operation-amount {
+    color: var(--success-color);
+}
+@media (min-width: 400px) {
+    header .content {
+        padding: 0;
+        width: 85%;
+    }
+}
+@media (min-width: 550px) {
+    header .content {
+        width: 80%;
+    }
+}

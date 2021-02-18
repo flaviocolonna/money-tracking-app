@@ -11,6 +11,15 @@ const paths = {
         entry: "index.js",
         base: "js",
         dist: "js"
+    },
+    css: {
+        entry: "index.css",
+        base: "css",
+        dist: "css"
+    },
+    icons: {
+        base: "icons",
+        dist: "icons"
     }
 }
 
@@ -39,5 +48,28 @@ module.exports = {
     },
     getJSOutputEntry: function() {
         return paths.js.entry;
-    }
+    },
+    getCSSEntryPath: function() {
+        return paths.global.src + '/' + paths.css.base + '/' + paths.css.entry;
+    },
+    getCSSSrcPath: function(innerPath) {
+        const baseCSSPath = paths.global.src + '/' + paths.css.base;
+        if(innerPath) {
+            return baseCSSPath + '/' + innerPath;
+        }
+        return baseCSSPath;
+    },
+    getOutputCSSFilename: function() {
+        return paths.css.entry;
+    },
+    getCSSOutputPath: function() {
+        return this.getDistFolder() + '/' + paths.css.dist;
+    },
+    getIconsSrcPath: function(innerPath) {
+        const baseIconsPath = paths.global.src + '/' + paths.icons.base;
+        if(innerPath) {
+            return baseIconsPath + '/' + innerPath;
+        }
+        return baseIconsPath;
+    },
 }

@@ -1,0 +1,40 @@
+.button-icon {
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    margin: 0;
+    padding: 0 12px;
+}
+.button-animated {
+    transition: background-size ease .3s;
+}
+.button-animated:hover {
+    background-size: 30px;
+}
+.button-error {
+    color: red;
+    border-color: red;
+}
+.button-success {
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+.button-float-container {
+    position: fixed;
+    text-align: right;
+    bottom: 64px;
+    padding: 0;
+}
+@media (max-width: 400px) {
+    .button-float-container {
+        right: 16px;
+    }
+}
+.button-float {
+    width: 56px;
+    height: 56px;
+    border-radius: 100px;
+    padding: 0;
+    border: 1px solid var(--primary-color);
+}

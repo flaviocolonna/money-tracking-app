@@ -1,0 +1,24 @@
+.toast {
+    position: fixed;
+    left: calc(50% - 150px);
+    bottom: -100px;
+    width: 300px;
+    background-color: var(--success-color);
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    box-sizing: border-box;
+    transition: .5s ease bottom;
+}
+.toast.show {
+    bottom: 20px;
+}
+.toast.toast--error {
+    background-color: var(--error-color);
+}
+.toast .toast__message {
+    margin: 0;
+    display: inline-block;
+    margin-right: 16px;
+}

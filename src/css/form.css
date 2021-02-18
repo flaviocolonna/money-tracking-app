@@ -1,0 +1,38 @@
+form .custom-input:focus {
+    border: 0;
+    border-bottom: 2px solid var(--grey-color);
+}
+form .custom-input {
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid var(--grey-color);
+}
+.custom-input-container {
+    position: relative;
+    width: 250px;
+}
+.custom-input-container input {
+    width: 250px;
+}
+.custom-input-container .button-icon {
+    position: absolute;
+    right: 0;
+    padding: 0 16px;
+    border: 1px solid var(--grey-color);
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    background-repeat: no-repeat;
+    background-size: 18px;
+    display: inline-block;
+    vertical-align: middle;
+}
+form .label-error {
+    display: none;
+    color: var(--error-color);
+}
+form .has-error input {
+    border-bottom-color: var(--error-color);
+}
+form .has-error .label-error {
+    display: block;
+}
