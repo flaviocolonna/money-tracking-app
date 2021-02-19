@@ -56,10 +56,10 @@
         </div>
         <!-- End Table container -->
         <!-- Start Modal container -->
-        <div class="modal hide">
+        <div class="modal hide" id="modal">
             <div class="modal__header row">
                 <h2>Add operation</h2>
-                <button class="button button-icon icon-close modal__header__action"></button>
+                <button class="button button-icon icon-close modal__header__action" onclick="toggleModal()"></button>
             </div>
             <div class="modal__main">
                 <form>
@@ -84,7 +84,7 @@
         <!-- End Modal container -->
         <!-- Start Floating Button container -->
         <div class="container button-float-container">
-            <button class="button-float button-icon icon-add"></button>
+            <button class="button-float button-icon icon-add" onclick="toggleModal()"></button>
         </div>
         <!-- End Floating Button container -->
 

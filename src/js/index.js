@@ -24,7 +24,19 @@ const getBalance = function () {
 const getOperations = function () {
     return wallet.getOperations();
 }
-
+const toggleModal = function() {
+    const modalComponent = document.getElementById('modal');
+    if(!modalComponent) {
+        return;
+    }
+    const isHidden = modalComponent.classList.contains('hide');
+    if(isHidden) {
+        modalComponent.classList.remove('hide');
+        return;
+    }
+    modalComponent.classList.add('hide');
+}
+window.toggleModal = toggleModal;
 window.addEventListener('DOMContentLoaded', function () {
     wallet = new Wallet();
 });
