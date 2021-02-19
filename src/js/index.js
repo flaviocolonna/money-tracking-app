@@ -1,9 +1,28 @@
 const Wallet = require("./models/Wallet").Wallet;
 
 let wallet;
-const addOperation = function (op) {
+
+const resetFormFields = function(form) {
+    const amountInput = form.amount;
+    const descriptionInput = form.description
+    amountInput.value = 0;
+    descriptionInput.value = '';
+}
+const addOperation = function (ev) {
+    ev.preventDefault();
+    const submitButton = ev.submitter;
+    const type = submitButton.getAttribute('data-type');
+    const amountInput = ev.target.amount;
+    const descriptionInput = ev.target.description;
+    const operation = {
+        amount: amountInput.value,
+        description: descriptionInput.value,
+        type,
+    };
     try {
-        wallet.addOperation(op);
+        wallet.addOperation(operation);
+        toggleModal();
+        resetFormFields(ev.target);
     } catch (e) {
         console.error(e);
     }
@@ -36,6 +55,7 @@ const toggleModal = function() {
     }
     modalComponent.classList.add('hide');
 }
+window.addOperation = addOperation;
 window.toggleModal = toggleModal;
 window.addEventListener('DOMContentLoaded', function () {
     wallet = new Wallet();

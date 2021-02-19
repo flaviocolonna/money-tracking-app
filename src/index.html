@@ -62,21 +62,34 @@
                 <button class="button button-icon icon-close modal__header__action" onclick="toggleModal()"></button>
             </div>
             <div class="modal__main">
-                <form>
+                <form onsubmit="addOperation(event)">
                     <div class="row">
                         <label for="amount-input">Amount</label>
-                        <input id="amount-input" class="custom-input u-full-width" placeholder="10" type="number" />
+                        <input
+                            id="amount-input"
+                            class="custom-input u-full-width"
+                            placeholder="10"
+                            type="number"
+                            min="0.01"
+                            step="0.01"
+                            name="amount"
+                            required />
                         <p class="label-error">At least more than zero</p>
                     </div>
                     <div class="row">
                         <label for="description-input">Description</label>
-                        <input id="description-input" class="custom-input u-full-width" placeholder="Bill"
-                            type="text" />
+                        <input id="description-input"
+                            class="custom-input u-full-width"
+                            placeholder="Bill"
+                            type="text"
+                            minlength="1"
+                            name="description"
+                            required />
                         <p class="label-error">At least more one character</p>
                     </div>
                     <div class="row">
-                        <button class="button-success">Add Income</button>
-                        <button class="button-error">Add Expense</button>
+                        <button class="button-success" type="submit" data-type="IN">Add Income</button>
+                        <button class="button-error" type="submit" data-type="OUT">Add Expense</button>
                     </div>
                 </form>
             </div>
