@@ -23,12 +23,6 @@ const showMessage = function (msg, type) {
         hideSnackbar();
     }, 5000);
 }
-const resetFormFields = function (form) {
-    const amountInput = form.amount;
-    const descriptionInput = form.description
-    amountInput.value = 0;
-    descriptionInput.value = '';
-}
 const addOperation = function (ev) {
     ev.preventDefault();
     const submitButton = ev.submitter;
@@ -42,8 +36,8 @@ const addOperation = function (ev) {
     };
     try {
         wallet.addOperation(operation);
+        ev.target.reset();
         toggleModal();
-        resetFormFields(ev.target);
         showMessage('Operation added successfully!', Enums.SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
