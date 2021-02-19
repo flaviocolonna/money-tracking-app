@@ -3,7 +3,7 @@ const Enums = require("./models/enums");
 
 let wallet;
 
-const hideSnackbar = function() {
+const hideSnackbar = function () {
     const toastElement = document.getElementById('toast');
     toastElement.classList.remove('show');
     toastElement.classList.remove('toast--error');
@@ -13,13 +13,13 @@ const showMessage = function (msg, type) {
     if (!toastElement || !msg || !Enums.SnackbarTypes[type]) {
         return;
     }
-    if(type === Enums.SnackbarTypes.ERROR) {
+    if (type === Enums.SnackbarTypes.ERROR) {
         toastElement.classList.add('toast--error');
     }
     const messageElement = toastElement.querySelector('.toast__message');
     messageElement.textContent = msg;
     toastElement.classList.add('show');
-    setTimeout(function() {
+    setTimeout(function () {
         hideSnackbar();
     }, 5000);
 }
@@ -36,6 +36,7 @@ const addOperation = function (ev) {
     };
     try {
         wallet.addOperation(operation);
+        updateBalance();
         ev.target.reset();
         toggleModal();
         showMessage('Operation added successfully!', Enums.SnackbarTypes.SUCCESS);
@@ -72,9 +73,17 @@ const toggleModal = function () {
     }
     modalComponent.classList.add('hide');
 }
+const updateBalance = function () {
+    const balanceElement = document.getElementById('balance-box');
+    if (!balanceElement) {
+        return;
+    }
+    balanceElement.textContent = getBalance();
+}
 window.hideSnackbar = hideSnackbar;
 window.addOperation = addOperation;
 window.toggleModal = toggleModal;
 window.addEventListener('DOMContentLoaded', function () {
     wallet = new Wallet();
+    updateBalance();
 });
