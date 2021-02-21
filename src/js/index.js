@@ -49,8 +49,12 @@ const addOperation = function (ev) {
 const removeOperation = function (id) {
     try {
         wallet.removeOperation(id);
+        updateOperationsTable();
+        updateBalance();
+        showMessage('Operation removed successfully!', Enums.SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
+        showMessage('Operation not removed!', Enums.SnackbarTypes.ERROR);
     }
 }
 const findOperation = function (val) {
