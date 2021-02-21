@@ -86,7 +86,7 @@ const updateBalance = function () {
     if (!balanceElement) {
         return;
     }
-    balanceElement.textContent = getBalance();
+    balanceElement.textContent = parseFloat(getBalance()).toLocaleString();
 }
 const updateOperationsTable = function (initialOperation) {
     const operations = Array.isArray(initialOperation) ? Array.from(initialOperation) : Array.from(getOperations());
@@ -112,7 +112,7 @@ const getOperationTableRow = function (operation) {
     const cells = [{
         value: operation.description
     }, {
-        value: operation.amount,
+        value: parseFloat(operation.amount).toLocaleString(),
         classes: 'operation-amount'
     }, {
         value: new Date(operation.date).toLocaleString(),
