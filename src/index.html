@@ -26,9 +26,11 @@
         <!-- Start Search container -->
         <div class="row">
             <div class="custom-input-container">
-                <label for="search-input">Search</label>
-                <input type="text" placeholder="Bill" id="search-input" />
-                <button class="button-icon icon-search"></button>
+                <form onsubmit="searchOperation(event)">
+                    <label for="search-input">Search</label>
+                    <input type="text" placeholder="Bill" name="searchInput" id="search-input" />
+                    <button class="button-icon icon-search"></button>
+                </form>
             </div>
         </div>
         <!-- End Search container -->
@@ -58,26 +60,14 @@
                 <form onsubmit="addOperation(event)">
                     <div class="row">
                         <label for="amount-input">Amount</label>
-                        <input
-                            id="amount-input"
-                            class="custom-input u-full-width"
-                            placeholder="10"
-                            type="number"
-                            min="0.01"
-                            step="0.01"
-                            name="amount"
-                            required />
+                        <input id="amount-input" class="custom-input u-full-width" placeholder="10" type="number"
+                            min="0.01" step="0.01" name="amount" required />
                         <p class="label-error">At least more than zero</p>
                     </div>
                     <div class="row">
                         <label for="description-input">Description</label>
-                        <input id="description-input"
-                            class="custom-input u-full-width"
-                            placeholder="Bill"
-                            type="text"
-                            minlength="1"
-                            name="description"
-                            required />
+                        <input id="description-input" class="custom-input u-full-width" placeholder="Bill" type="text"
+                            minlength="1" name="description" required />
                         <p class="label-error">At least more one character</p>
                     </div>
                     <div class="row">

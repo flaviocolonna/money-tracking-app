@@ -49,6 +49,9 @@ function Wallet() {
     }
     this.findOperation = function(searchValue) {
         const val = searchValue.toLowerCase().trim();
+        if(!val) {
+            return operations;
+        }
         const operationsFound = [];
         for(var i = 0; i < operations.length; i++) {
             const description = operations[i].description.toLowerCase();

@@ -57,8 +57,11 @@ const removeOperation = function (id) {
         showMessage('Operation not removed!', Enums.SnackbarTypes.ERROR);
     }
 }
-const findOperation = function (val) {
-    return wallet.findOperation(val);
+const searchOperation = function (event) {
+    event.preventDefault();
+    const searchInput = event.target.searchInput;
+    const operationsToAdd = wallet.findOperation(searchInput.value);
+    updateOperationsTable(operationsToAdd);
 }
 const getBalance = function () {
     return wallet.getBalance();
@@ -85,8 +88,8 @@ const updateBalance = function () {
     }
     balanceElement.textContent = getBalance();
 }
-const updateOperationsTable = function () {
-    const operations = Array.from(getOperations());
+const updateOperationsTable = function (initialOperation) {
+    const operations = Array.isArray(initialOperation) ? Array.from(initialOperation) : Array.from(getOperations());
     const tableContainerElement = document.getElementById('table-container');
     const tableElement = document.getElementById('table-body');
     if (!tableElement || !tableContainerElement) {
@@ -139,6 +142,7 @@ const getDeleteActionBtn = function (operation) {
 window.hideSnackbar = hideSnackbar;
 window.addOperation = addOperation;
 window.toggleModal = toggleModal;
+window.searchOperation = searchOperation;
 window.addEventListener('DOMContentLoaded', function () {
     wallet = new Wallet();
     updateBalance();
