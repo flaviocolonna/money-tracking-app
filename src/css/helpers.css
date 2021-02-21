@@ -7,3 +7,6 @@
 .align-text-center {
     text-align: center;
 }
+.hide {
+    display: none;
+}
