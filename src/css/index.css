@@ -11,7 +11,7 @@ header .content {
     height: 56px;
     padding: 0 20px;
 }
-.header-options #balance-box:before {
+.header-options #balance-box::before, .operation-amount::before {
     content: '€';
     margin-right: 4px;
 }
@@ -36,10 +36,10 @@ main.container {
 table {
     table-layout: fixed;
 }
-tr[data-op-type="expense"] .operation-amount {
+tr[data-op-type="out"] .operation-amount {
     color: red;
 }
-tr[data-op-type="income"] .operation-amount {
+tr[data-op-type="in"] .operation-amount {
     color: var(--success-color);
 }
 @media (min-width: 400px) {

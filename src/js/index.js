@@ -38,6 +38,7 @@ const addOperation = function (ev) {
         wallet.addOperation(operation);
         updateBalance();
         ev.target.reset();
+        updateOperationsTable();
         toggleModal();
         showMessage('Operation added successfully!', Enums.SnackbarTypes.SUCCESS);
     } catch (e) {
@@ -80,10 +81,44 @@ const updateBalance = function () {
     }
     balanceElement.textContent = getBalance();
 }
+const updateOperationsTable = function () {
+    const operations = Array.from(getOperations());
+    const tableElement = document.getElementById('table-body');
+    if (!tableElement) {
+        return;
+    }
+    tableElement.innerHTML = '';
+    operations.reverse().forEach(function (operation) {
+        // Add operation to table
+        const trRow = document.createElement('tr');
+        trRow.setAttribute('data-op-type', operation.type.toLowerCase());
+        const tdDescription = document.createElement('td');
+        tdDescription.textContent = operation.description;
+        const tdAmount = document.createElement('td');
+        tdAmount.className = 'operation-amount';
+        tdAmount.textContent = operation.amount;
+        const tdDate = document.createElement('td');
+        tdDate.textContent = new Date(operation.date).toLocaleString();
+        const tdAction = document.createElement('td');
+        tdAction.className = 'align-text-center';
+        const actionButton = document.createElement('button');
+        actionButton.className = 'button button-icon button-animated icon-delete';
+        actionButton.onclick = function () {
+            removeOperation(operation.id);
+        }
+        tdAction.appendChild(actionButton);
+        trRow.appendChild(tdDescription);
+        trRow.appendChild(tdAmount);
+        trRow.appendChild(tdDate);
+        trRow.appendChild(tdAction);
+        tableElement.appendChild(trRow);
+    });
+}
 window.hideSnackbar = hideSnackbar;
 window.addOperation = addOperation;
 window.toggleModal = toggleModal;
 window.addEventListener('DOMContentLoaded', function () {
     wallet = new Wallet();
     updateBalance();
+    updateOperationsTable();
 });
