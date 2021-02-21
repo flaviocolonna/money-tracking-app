@@ -87,11 +87,17 @@ const updateBalance = function () {
 }
 const updateOperationsTable = function () {
     const operations = Array.from(getOperations());
+    const tableContainerElement = document.getElementById('table-container');
     const tableElement = document.getElementById('table-body');
-    if (!tableElement) {
+    if (!tableElement || !tableContainerElement) {
         return;
     }
     tableElement.innerHTML = '';
+    if(!operations.length) {
+        tableContainerElement.classList.add('no-data');
+        return;
+    }
+    tableContainerElement.classList.remove('no-data');
     operations.reverse().forEach(function(operation) {
         tableElement.appendChild(getOperationTableRow(operation));
     });

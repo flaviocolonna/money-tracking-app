@@ -1,0 +1,26 @@
+#table-container.no-data .fallback-message {
+    display: block;
+}
+#table-container.no-data table {
+    display: none;
+}
+.fallback-message {
+    text-align: center;
+    font-size: 3rem;
+    margin: 0;
+    margin-top: 3rem;
+    display: none;
+}
+table {
+    table-layout: fixed;
+}
+tr[data-op-type="out"] .operation-amount {
+    color: red;
+}
+tr[data-op-type="in"] .operation-amount {
+    color: var(--success-color);
+}
+.operation-amount::before {
+    content: '€';
+    margin-right: 4px;
+}

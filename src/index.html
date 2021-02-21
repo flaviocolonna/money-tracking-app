@@ -33,7 +33,7 @@
         </div>
         <!-- End Search container -->
         <!-- Start Table container -->
-        <div class="row">
+        <div class="row" id="table-container">
             <table class="u-full-width">
                 <thead>
                     <tr>
@@ -43,16 +43,9 @@
                         <th aria-label="Options"></th>
                     </tr>
                 </thead>
-                <tbody id="table-body">
-                    <tr data-op-type="expense">
-                        <td>Electricity bill</td>
-                        <td class="operation-amount">€ 200</td>
-                        <td>12/10/2020</td>
-                        <td class="align-text-center"><button
-                                class="button button-icon button-animated icon-delete"></button></td>
-                    </tr>
-                </tbody>
+                <tbody id="table-body"></tbody>
             </table>
+            <p class="fallback-message">No operations found</p>
         </div>
         <!-- End Table container -->
         <!-- Start Modal container -->
