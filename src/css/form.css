@@ -14,9 +14,15 @@ form .custom-input {
 .custom-input-container input {
     width: 250px;
 }
-.custom-input-container .button-icon {
+.custom-input-container__actions {
     position: absolute;
     right: 0;
+}
+.custom-input-container__actions__action[data-variant='secondary'] {
+    border: none;
+    background-size: 13px;
+}
+.custom-input-container__actions__action {
     padding: 0 16px;
     border: 1px solid var(--grey-color);
     border-bottom-left-radius: 0;

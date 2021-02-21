@@ -28,8 +28,16 @@
             <div class="custom-input-container">
                 <form onsubmit="searchOperation(event)">
                     <label for="search-input">Search</label>
-                    <input type="text" placeholder="Bill" name="searchInput" id="search-input" />
-                    <button class="button-icon icon-search"></button>
+                    <input type="text" placeholder="Bill" name="searchInput" id="search-input" oninput="onSearchInputChange(event)" />
+                    <span class="custom-input-container__actions">
+                        <button
+                            type="button"
+                            class="custom-input-container__actions__action button-icon icon-close hide"
+                            id="reset-search-btn"
+                            data-variant="secondary"
+                            onclick="resetSearch(event)"></button>
+                        <button class="custom-input-container__actions__action button-icon icon-search"></button>
+                    </span>
                 </form>
             </div>
         </div>

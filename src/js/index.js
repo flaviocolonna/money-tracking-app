@@ -57,6 +57,15 @@ const removeOperation = function (id) {
         showMessage('Operation not removed!', Enums.SnackbarTypes.ERROR);
     }
 }
+const resetSearch = function (event) {
+    event.preventDefault();
+    const formElement = event.target.closest('form');
+    if (!formElement) {
+        return;
+    }
+    formElement.reset();
+    updateOperationsTable();
+}
 const searchOperation = function (event) {
     event.preventDefault();
     const searchInput = event.target.searchInput;
@@ -96,12 +105,12 @@ const updateOperationsTable = function (initialOperation) {
         return;
     }
     tableElement.innerHTML = '';
-    if(!operations.length) {
+    if (!operations.length) {
         tableContainerElement.classList.add('no-data');
         return;
     }
     tableContainerElement.classList.remove('no-data');
-    operations.reverse().forEach(function(operation) {
+    operations.reverse().forEach(function (operation) {
         tableElement.appendChild(getOperationTableRow(operation));
     });
 }
@@ -139,10 +148,24 @@ const getDeleteActionBtn = function (operation) {
     tdAction.appendChild(actionButton);
     return tdAction;
 }
+const onSearchInputChange = function (event) {
+    const searchValue = event.target.value;
+    const resetSearchElmnt = document.getElementById('reset-search-btn');
+    if (!resetSearchElmnt) {
+        return;
+    }
+    if (!searchValue) {
+        resetSearchElmnt.classList.add('hide');
+        return;
+    }
+    resetSearchElmnt.classList.remove('hide');
+}
 window.hideSnackbar = hideSnackbar;
 window.addOperation = addOperation;
 window.toggleModal = toggleModal;
 window.searchOperation = searchOperation;
+window.resetSearch = resetSearch;
+window.onSearchInputChange = onSearchInputChange;
 window.addEventListener('DOMContentLoaded', function () {
     wallet = new Wallet();
     updateBalance();
