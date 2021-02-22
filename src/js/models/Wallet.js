@@ -35,9 +35,7 @@ class Wallet {
         this.saveWallet();
     }
     removeOperation(id) {
-        const operationIndex = utilsTasks.findIndex(this.operations, function (operation) {
-            return operation.id === id;
-        });
+        const operationIndex = utilsTasks.findIndex(this.operations, operation => operation.id === id);
         if (operationIndex === -1) {
             throw new Error(WalletEnums.WalletErrors.OPERATION_NOT_FOUND);
         }
