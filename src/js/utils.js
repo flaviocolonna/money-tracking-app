@@ -8,13 +8,10 @@ function findIndex(list, cb) {
     }
     return -1;
 }
-function isValidOperation(op) {
-    if(!op) {
-        return false;
-    }
-    const { description, type, amount } = op;
-    return description && parseFloat(amount) > 0 && typeof OpType[type] !== 'undefined';
-}
+
+const isValidOperation = op =>
+    op?.description && parseFloat(op?.amount) > 0 && typeof OpType[op?.type] !== 'undefined';
+
 function getWallet() {
     const wallet = localStorage.getItem('wallet');
     if (!wallet) {

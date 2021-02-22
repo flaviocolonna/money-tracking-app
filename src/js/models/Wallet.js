@@ -55,7 +55,7 @@ class Wallet {
         this.saveWallet();
     }
     findOperation(searchValue) {
-        const val = searchValue.toLowerCase().trim();
+        const val = searchValue?.toLowerCase().trim();
         if (!val) {
             return this.#operations;
         }
