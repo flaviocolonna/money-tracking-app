@@ -8,9 +8,9 @@ class Wallet {
         this.init();
     }
     init() {
-        const wallet = getWallet();
-        this.balance = wallet.balance;
-        this.operations = wallet.operations;
+        const { balance, operations } = getWallet();
+        this.balance = balance;
+        this.operations = operations;
     }
     saveWallet() {
         localStorage.setItem('wallet', JSON.stringify({ balance: this.balance, operations: this.operations }));
@@ -19,31 +19,33 @@ class Wallet {
         if (!isValidOperation(op)) {
             throw new Error(WalletErrors.INVALID_OPERATION);
         }
+        const { description, type, amount } = op;
+        const currentMS = new Date().getTime();
         const operation = {
-            id: new Date().getTime(),
-            amount: parseFloat(op.amount),
-            description: op.description.trim(),
-            type: op.type,
-            date: new Date().getTime()
+            id: currentMS,
+            amount: parseFloat(amount),
+            description: description.trim(),
+            type,
+            date: currentMS
         }
-        if (op.type === OpType.IN) {
+        if (type === OpType.IN) {
             this.balance += operation.amount;
-        } else if (op.type === OpType.OUT) {
+        } else if (type === OpType.OUT) {
             this.balance -= operation.amount;
         }
         this.operations.push(operation);
         this.saveWallet();
     }
-    removeOperation(id) {
-        const operationIndex = findIndex(this.operations, operation => operation.id === id);
+    removeOperation(opId) {
+        const operationIndex = findIndex(this.operations, ({ id }) => id === opId);
         if (operationIndex === -1) {
             throw new Error(WalletErrors.OPERATION_NOT_FOUND);
         }
-        const operation = this.operations[operationIndex];
-        if (operation.type === OpType.IN) {
-            this.balance -= operation.amount;
-        } else if (operation.type === OpType.OUT) {
-            this.balance += operation.amount;
+        const { type, amount } = this.operations[operationIndex];
+        if (type === OpType.IN) {
+            this.balance -= amount;
+        } else if (type === OpType.OUT) {
+            this.balance += amount;
         }
         this.operations.splice(operationIndex, 1);
         this.saveWallet();
@@ -54,9 +56,9 @@ class Wallet {
             return this.operations;
         }
         const operationsFound = [];
-        for (var i = 0; i < this.operations.length; i++) {
-            const description = this.operations[i].description.toLowerCase();
-            if (description.indexOf(val) > -1) {
+        for (let i = 0; i < this.operations.length; i++) {
+            const { description } = this.operations[i];
+            if (description.toLowerCase().indexOf(val) > -1) {
                 operationsFound.push(this.operations[i]);
             }
         }

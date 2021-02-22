@@ -1,7 +1,7 @@
 import { OpType } from "./models/enums";
 
 function findIndex(list, cb) {
-    for (var i = 0; i < list.length; i++) {
+    for (let i = 0; i < list.length; i++) {
         if (cb(list[i])) {
             return i;
         }
@@ -9,7 +9,11 @@ function findIndex(list, cb) {
     return -1;
 }
 function isValidOperation(op) {
-    return op && op.description && parseFloat(op.amount) > 0 && typeof OpType[op.type] !== 'undefined';
+    if(!op) {
+        return false;
+    }
+    const { description, type, amount } = op;
+    return description && parseFloat(amount) > 0 && typeof OpType[type] !== 'undefined';
 }
 function getWallet() {
     const wallet = localStorage.getItem('wallet');
