@@ -1,19 +1,20 @@
-const WalletEnums = require("./models/enums");
+import { OpType } from "./models/enums";
 
 function findIndex(list, cb) {
-    for(var i = 0; i < list.length; i++) {
-        if(cb(list[i])) {
+    for (let i = 0; i < list.length; i++) {
+        if (cb(list[i])) {
             return i;
         }
     }
     return -1;
 }
-function isValidOperation(op) {
-    return op && op.description && parseFloat(op.amount) > 0 && typeof WalletEnums.OpType[op.type] !== 'undefined';
-}
+
+const isValidOperation = op =>
+    op?.description && parseFloat(op?.amount) > 0 && typeof OpType[op?.type] !== 'undefined';
+
 function getWallet() {
     const wallet = localStorage.getItem('wallet');
-    if(!wallet) {
+    if (!wallet) {
         return {
             balance: 0,
             operations: []
@@ -22,8 +23,8 @@ function getWallet() {
     return JSON.parse(wallet);
 }
 
-module.exports = {
-    getWallet: getWallet,
-    isValidOperation: isValidOperation,
-    findIndex: findIndex
+export {
+    getWallet,
+    isValidOperation,
+    findIndex
 }

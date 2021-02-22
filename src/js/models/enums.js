@@ -10,8 +10,8 @@ const SnackbarTypes = Object.freeze({
     SUCCESS: 'SUCCESS',
     ERROR: 'ERROR'
 });
-module.exports = {
-    OpType: OpType,
-    WalletErrors: WalletErrors,
-    SnackbarTypes: SnackbarTypes
+export {
+    OpType,
+    WalletErrors,
+    SnackbarTypes
 }

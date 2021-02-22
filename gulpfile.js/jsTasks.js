@@ -19,6 +19,7 @@ const browserifyBundle = function() {
     return browserify({
         entries: paths.getJsEntryPath()
     })
+        .transform('babelify')
         .bundle()
         .pipe(source(paths.getJSOutputEntry()))
         .pipe(buffer())

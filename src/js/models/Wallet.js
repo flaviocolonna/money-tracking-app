@@ -1,75 +1,79 @@
-const utilsTasks = require("../utils");
-const WalletEnums = require("./enums");
+import { getWallet, isValidOperation, findIndex } from "../utils";
+import { WalletErrors, OpType } from "./enums";
 
-function Wallet() {
-    let balance = 0;
-    let operations = [];
-    function init() {
-        const wallet = utilsTasks.getWallet();
-        balance = wallet.balance;
-        operations = wallet.operations;
+class Wallet {
+    #balance = 0;
+    #operations = [];
+
+    constructor() {
+        this.#init();
     }
-    function saveWallet() {
-        localStorage.setItem('wallet', JSON.stringify({ balance: balance, operations: operations }));
+
+    #init() {
+        const { balance, operations } = getWallet();
+        this.#balance = balance;
+        this.#operations = operations;
     }
-    this.addOperation = function(op) {
-        if(!utilsTasks.isValidOperation(op)) {
-            throw new Error(WalletEnums.WalletErrors.INVALID_OPERATION);
+
+    saveWallet() {
+        localStorage.setItem('wallet', JSON.stringify({ balance: this.#balance, operations: this.#operations }));
+    }
+
+    addOperation(op) {
+        if (!isValidOperation(op)) {
+            throw new Error(WalletErrors.INVALID_OPERATION);
         }
+        const { description, type, amount } = op;
+        const currentMS = new Date().getTime();
         const operation = {
-            id: new Date().getTime(),
-            amount: parseFloat(op.amount),
-            description: op.description.trim(),
-            type: op.type,
-            date: new Date().getTime()
+            id: currentMS,
+            amount: parseFloat(amount),
+            description: description.trim(),
+            type,
+            date: currentMS
         }
-        if(op.type === WalletEnums.OpType.IN) {
-            balance += operation.amount;
-        } else if(op.type === WalletEnums.OpType.OUT) {
-            balance -= operation.amount;
+        if (type === OpType.IN) {
+            this.#balance += operation.amount;
+        } else if (type === OpType.OUT) {
+            this.#balance -= operation.amount;
         }
-        operations.push(operation);
-        saveWallet();
+        this.#operations.push(operation);
+        this.saveWallet();
     }
-    this.removeOperation = function(id) {
-        const operationIndex = utilsTasks.findIndex(operations, function(operation) {
-            return operation.id === id;
-        });
-        if(operationIndex === -1) {
-            throw new Error(WalletEnums.WalletErrors.OPERATION_NOT_FOUND);
+    removeOperation(opId) {
+        const operationIndex = findIndex(this.#operations, ({ id }) => id === opId);
+        if (operationIndex === -1) {
+            throw new Error(WalletErrors.OPERATION_NOT_FOUND);
         }
-        const operation = operations[operationIndex];
-        if(operation.type === WalletEnums.OpType.IN) {
-            balance -= operation.amount;
-        } else if(operation.type === WalletEnums.OpType.OUT) {
-            balance += operation.amount;
+        const { type, amount } = this.#operations[operationIndex];
+        if (type === OpType.IN) {
+            this.#balance -= amount;
+        } else if (type === OpType.OUT) {
+            this.#balance += amount;
         }
-        operations.splice(operationIndex, 1);
-        saveWallet();
+        this.#operations.splice(operationIndex, 1);
+        this.saveWallet();
     }
-    this.findOperation = function(searchValue) {
-        const val = searchValue.toLowerCase().trim();
-        if(!val) {
-            return operations;
+    findOperation(searchValue) {
+        const val = searchValue?.toLowerCase().trim();
+        if (!val) {
+            return this.#operations;
         }
         const operationsFound = [];
-        for(var i = 0; i < operations.length; i++) {
-            const description = operations[i].description.toLowerCase();
-            if(description.indexOf(val) > -1) {
-                operationsFound.push(operations[i]);
+        for (let i = 0; i < this.#operations.length; i++) {
+            const { description } = this.#operations[i];
+            if (description.toLowerCase().includes(val)) {
+                operationsFound.push(this.#operations[i]);
             }
         }
         return operationsFound;
     }
-    this.getBalance = function() {
-        return balance;
+    getBalance() {
+        return this.#balance;
     }
-    this.getOperations = function() {
-        return operations;
+    getOperations() {
+        return this.#operations;
     }
-    init();
 }
 
-module.exports = {
-    Wallet: Wallet
-}
+export default Wallet;

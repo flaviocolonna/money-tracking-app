@@ -65,7 +65,7 @@
                 <button class="button button-icon icon-close modal__header__action" onclick="toggleModal()"></button>
             </div>
             <div class="modal__main">
-                <form onsubmit="addOperation(event)">
+                <form>
                     <div class="row">
                         <label for="amount-input">Amount</label>
                         <input id="amount-input" class="custom-input u-full-width" placeholder="10" type="number"
@@ -79,8 +79,8 @@
                         <p class="label-error">At least more one character</p>
                     </div>
                     <div class="row">
-                        <button class="button-success" type="submit" data-type="IN">Add Income</button>
-                        <button class="button-error" type="submit" data-type="OUT">Add Expense</button>
+                        <button class="button-success" type="button" onclick="addOperation(event)" data-type="IN">Add Income</button>
+                        <button class="button-error" type="button" onclick="addOperation(event)" data-type="OUT">Add Expense</button>
                     </div>
                 </form>
             </div>

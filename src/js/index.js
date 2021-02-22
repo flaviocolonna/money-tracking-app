@@ -1,34 +1,39 @@
-const Wallet = require("./models/Wallet").Wallet;
-const Enums = require("./models/enums");
+import Wallet from "./models/Wallet";
+import { SnackbarTypes } from "./models/enums";
 
 let wallet;
+let snackBarTimeout;
 
 const hideSnackbar = function () {
     const toastElement = document.getElementById('toast');
-    toastElement.classList.remove('show');
-    toastElement.classList.remove('toast--error');
+    toastElement?.classList.remove('show');
+    toastElement?.classList.remove('toast--error');
 }
 const showMessage = function (msg, type) {
     const toastElement = document.getElementById('toast');
-    if (!toastElement || !msg || !Enums.SnackbarTypes[type]) {
+    if (!toastElement || !msg || !SnackbarTypes[type]) {
         return;
     }
-    if (type === Enums.SnackbarTypes.ERROR) {
+    if (type === SnackbarTypes.ERROR) {
         toastElement.classList.add('toast--error');
     }
     const messageElement = toastElement.querySelector('.toast__message');
     messageElement.textContent = msg;
     toastElement.classList.add('show');
-    setTimeout(function () {
+    clearTimeout(snackBarTimeout);
+    snackBarTimeout = setTimeout(function () {
         hideSnackbar();
     }, 5000);
 }
 const addOperation = function (ev) {
     ev.preventDefault();
-    const submitButton = ev.submitter;
-    const type = submitButton.getAttribute('data-type');
-    const amountInput = ev.target.amount;
-    const descriptionInput = ev.target.description;
+    const { target } = ev;
+    const formElmnt = target.closest('form');
+    if(!formElmnt) {
+        return;
+    }
+    const { amount: amountInput, description: descriptionInput } = formElmnt;
+    const type = target.getAttribute('data-type');
     const operation = {
         amount: amountInput.value,
         description: descriptionInput.value,
@@ -37,13 +42,13 @@ const addOperation = function (ev) {
     try {
         wallet.addOperation(operation);
         updateBalance();
-        ev.target.reset();
+        formElmnt.reset();
         updateOperationsTable();
         toggleModal();
-        showMessage('Operation added successfully!', Enums.SnackbarTypes.SUCCESS);
+        showMessage('Operation added successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
-        showMessage('Operation not added!', Enums.SnackbarTypes.ERROR);
+        showMessage('Operation not added!', SnackbarTypes.ERROR);
     }
 }
 const removeOperation = function (id) {
@@ -51,15 +56,16 @@ const removeOperation = function (id) {
         wallet.removeOperation(id);
         updateOperationsTable();
         updateBalance();
-        showMessage('Operation removed successfully!', Enums.SnackbarTypes.SUCCESS);
+        showMessage('Operation removed successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
-        showMessage('Operation not removed!', Enums.SnackbarTypes.ERROR);
+        showMessage('Operation not removed!', SnackbarTypes.ERROR);
     }
 }
 const resetSearch = function (event) {
     event.preventDefault();
-    const formElement = event.target.closest('form');
+    const { target } = event;
+    const formElement = target.closest('form');
     if (!formElement) {
         return;
     }
@@ -68,8 +74,8 @@ const resetSearch = function (event) {
 }
 const searchOperation = function (event) {
     event.preventDefault();
-    const searchInput = event.target.searchInput;
-    const operationsToAdd = wallet.findOperation(searchInput.value);
+    const { searchInput: { value } } = event.target;
+    const operationsToAdd = wallet.findOperation(value);
     updateOperationsTable(operationsToAdd);
 }
 const getBalance = function () {
@@ -97,13 +103,13 @@ const updateBalance = function () {
     }
     balanceElement.textContent = parseFloat(getBalance()).toLocaleString();
 }
-const updateOperationsTable = function (initialOperation) {
-    const operations = Array.isArray(initialOperation) ? Array.from(initialOperation) : Array.from(getOperations());
+const updateOperationsTable = function (originalOperations = getOperations()) {
     const tableContainerElement = document.getElementById('table-container');
     const tableElement = document.getElementById('table-body');
-    if (!tableElement || !tableContainerElement) {
+    if(!Array.isArray(originalOperations) || !tableElement || !tableContainerElement) {
         return;
     }
+    const operations = [...originalOperations];
     tableElement.innerHTML = '';
     if (!operations.length) {
         tableContainerElement.classList.add('no-data');
@@ -149,7 +155,7 @@ const getDeleteActionBtn = function (operation) {
     return tdAction;
 }
 const onSearchInputChange = function (event) {
-    const searchValue = event.target.value;
+    const { value: searchValue } = event.target;
     const resetSearchElmnt = document.getElementById('reset-search-btn');
     if (!resetSearchElmnt) {
         return;
