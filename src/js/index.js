@@ -1,5 +1,5 @@
-const Wallet = require("./models/Wallet");
-const Enums = require("./models/enums");
+import Wallet from "./models/Wallet";
+import { SnackbarTypes } from "./models/enums";
 
 let wallet;
 
@@ -10,10 +10,10 @@ const hideSnackbar = function () {
 }
 const showMessage = function (msg, type) {
     const toastElement = document.getElementById('toast');
-    if (!toastElement || !msg || !Enums.SnackbarTypes[type]) {
+    if (!toastElement || !msg || !SnackbarTypes[type]) {
         return;
     }
-    if (type === Enums.SnackbarTypes.ERROR) {
+    if (type === SnackbarTypes.ERROR) {
         toastElement.classList.add('toast--error');
     }
     const messageElement = toastElement.querySelector('.toast__message');
@@ -40,10 +40,10 @@ const addOperation = function (ev) {
         ev.target.reset();
         updateOperationsTable();
         toggleModal();
-        showMessage('Operation added successfully!', Enums.SnackbarTypes.SUCCESS);
+        showMessage('Operation added successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
-        showMessage('Operation not added!', Enums.SnackbarTypes.ERROR);
+        showMessage('Operation not added!', SnackbarTypes.ERROR);
     }
 }
 const removeOperation = function (id) {
@@ -51,10 +51,10 @@ const removeOperation = function (id) {
         wallet.removeOperation(id);
         updateOperationsTable();
         updateBalance();
-        showMessage('Operation removed successfully!', Enums.SnackbarTypes.SUCCESS);
+        showMessage('Operation removed successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
-        showMessage('Operation not removed!', Enums.SnackbarTypes.ERROR);
+        showMessage('Operation not removed!', SnackbarTypes.ERROR);
     }
 }
 const resetSearch = function (event) {

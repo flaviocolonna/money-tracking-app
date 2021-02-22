@@ -1,6 +1,6 @@
-const Wallet = require("./Wallet");
+import Wallet from "./Wallet";
+import { WalletErrors } from "./enums";
 const mockedStructures = require("../../../jest/mockedStructures");
-const WalletEnums = require("./enums");
 
 describe("Wallet testing suite", function () {
     beforeEach(function() {
@@ -28,7 +28,7 @@ describe("Wallet testing suite", function () {
         try {
             wallet.addOperation(mockedStructures.invalidOperation);
         } catch(e) {
-            expect(e.message).toBe(WalletEnums.WalletErrors.INVALID_OPERATION);
+            expect(e.message).toBe(WalletErrors.INVALID_OPERATION);
         }
     });
     it("removeOperation: it works removing an income operation", function () {
@@ -52,7 +52,7 @@ describe("Wallet testing suite", function () {
         try {
             wallet.removeOperation(242389239);
         } catch(e) {
-            expect(e.message).toBe(WalletEnums.WalletErrors.OPERATION_NOT_FOUND);
+            expect(e.message).toBe(WalletErrors.OPERATION_NOT_FOUND);
         }
     });
     it("findOperation: it works finding a correct operation passing a search value", function () {

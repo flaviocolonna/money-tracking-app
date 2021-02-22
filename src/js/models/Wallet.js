@@ -1,5 +1,5 @@
-const utilsTasks = require("../utils");
-const WalletEnums = require("./enums");
+import { getWallet, isValidOperation, findIndex } from "../utils";
+import { WalletErrors, OpType } from "./enums";
 
 class Wallet {
     constructor() {
@@ -8,7 +8,7 @@ class Wallet {
         this.init();
     }
     init() {
-        const wallet = utilsTasks.getWallet();
+        const wallet = getWallet();
         this.balance = wallet.balance;
         this.operations = wallet.operations;
     }
@@ -16,8 +16,8 @@ class Wallet {
         localStorage.setItem('wallet', JSON.stringify({ balance: this.balance, operations: this.operations }));
     }
     addOperation(op) {
-        if (!utilsTasks.isValidOperation(op)) {
-            throw new Error(WalletEnums.WalletErrors.INVALID_OPERATION);
+        if (!isValidOperation(op)) {
+            throw new Error(WalletErrors.INVALID_OPERATION);
         }
         const operation = {
             id: new Date().getTime(),
@@ -26,23 +26,23 @@ class Wallet {
             type: op.type,
             date: new Date().getTime()
         }
-        if (op.type === WalletEnums.OpType.IN) {
+        if (op.type === OpType.IN) {
             this.balance += operation.amount;
-        } else if (op.type === WalletEnums.OpType.OUT) {
+        } else if (op.type === OpType.OUT) {
             this.balance -= operation.amount;
         }
         this.operations.push(operation);
         this.saveWallet();
     }
     removeOperation(id) {
-        const operationIndex = utilsTasks.findIndex(this.operations, operation => operation.id === id);
+        const operationIndex = findIndex(this.operations, operation => operation.id === id);
         if (operationIndex === -1) {
-            throw new Error(WalletEnums.WalletErrors.OPERATION_NOT_FOUND);
+            throw new Error(WalletErrors.OPERATION_NOT_FOUND);
         }
         const operation = this.operations[operationIndex];
-        if (operation.type === WalletEnums.OpType.IN) {
+        if (operation.type === OpType.IN) {
             this.balance -= operation.amount;
-        } else if (operation.type === WalletEnums.OpType.OUT) {
+        } else if (operation.type === OpType.OUT) {
             this.balance += operation.amount;
         }
         this.operations.splice(operationIndex, 1);
@@ -70,4 +70,4 @@ class Wallet {
     }
 }
 
-module.exports = Wallet;
+export default Wallet;
