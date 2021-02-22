@@ -1,4 +1,4 @@
-const Wallet = require("./models/Wallet").Wallet;
+const Wallet = require("./models/Wallet");
 const Enums = require("./models/enums");
 
 let wallet;

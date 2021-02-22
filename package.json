@@ -27,6 +27,9 @@
   "homepage": "https://github.com/flaviocolonna/money-tracking-app#readme",
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.12.17",
+    "@babel/preset-env": "^7.12.17",
+    "babelify": "^10.0.0",
     "browser-sync": "^2.26.14",
     "browserify": "^17.0.0",
     "del": "^6.0.0",
