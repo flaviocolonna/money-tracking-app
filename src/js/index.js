@@ -2,11 +2,12 @@ import Wallet from "./models/Wallet";
 import { SnackbarTypes } from "./models/enums";
 
 let wallet;
+let snackBarTimeout;
 
 const hideSnackbar = function () {
     const toastElement = document.getElementById('toast');
-    toastElement.classList.remove('show');
-    toastElement.classList.remove('toast--error');
+    toastElement?.classList.remove('show');
+    toastElement?.classList.remove('toast--error');
 }
 const showMessage = function (msg, type) {
     const toastElement = document.getElementById('toast');
@@ -19,7 +20,8 @@ const showMessage = function (msg, type) {
     const messageElement = toastElement.querySelector('.toast__message');
     messageElement.textContent = msg;
     toastElement.classList.add('show');
-    setTimeout(function () {
+    clearTimeout(snackBarTimeout);
+    snackBarTimeout = setTimeout(function () {
         hideSnackbar();
     }, 5000);
 }
