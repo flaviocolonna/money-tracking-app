@@ -97,13 +97,13 @@ const updateBalance = function () {
     }
     balanceElement.textContent = parseFloat(getBalance()).toLocaleString();
 }
-const updateOperationsTable = function (initialOperation) {
-    const operations = Array.isArray(initialOperation) ? [...initialOperation] : [...getOperations()];
+const updateOperationsTable = function (operations = getOperations()) {
     const tableContainerElement = document.getElementById('table-container');
     const tableElement = document.getElementById('table-body');
-    if (!tableElement || !tableContainerElement) {
+    if(!Array.isArray(operations) || !tableElement || !tableContainerElement) {
         return;
     }
+    const operations = [...operations];
     tableElement.innerHTML = '';
     if (!operations.length) {
         tableContainerElement.classList.add('no-data');
