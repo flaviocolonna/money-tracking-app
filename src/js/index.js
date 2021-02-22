@@ -98,7 +98,7 @@ const updateBalance = function () {
     balanceElement.textContent = parseFloat(getBalance()).toLocaleString();
 }
 const updateOperationsTable = function (initialOperation) {
-    const operations = Array.isArray(initialOperation) ? Array.from(initialOperation) : Array.from(getOperations());
+    const operations = Array.isArray(initialOperation) ? [...initialOperation] : [...getOperations()];
     const tableContainerElement = document.getElementById('table-container');
     const tableElement = document.getElementById('table-body');
     if (!tableElement || !tableContainerElement) {
