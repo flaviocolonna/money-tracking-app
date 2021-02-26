@@ -29,7 +29,7 @@ const addOperation = function (ev) {
     ev.preventDefault();
     const { target } = ev;
     const formElmnt = target.closest('form');
-    if(!formElmnt) {
+    if (!formElmnt) {
         return;
     }
     const { amount: amountInput, description: descriptionInput } = formElmnt;
@@ -106,7 +106,7 @@ const updateBalance = function () {
 const updateOperationsTable = function (originalOperations = getOperations()) {
     const tableContainerElement = document.getElementById('table-container');
     const tableElement = document.getElementById('table-body');
-    if(!Array.isArray(originalOperations) || !tableElement || !tableContainerElement) {
+    if (!Array.isArray(originalOperations) || !tableElement || !tableContainerElement) {
         return;
     }
     const operations = [...originalOperations];
