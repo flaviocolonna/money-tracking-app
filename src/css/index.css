@@ -1,4 +1,5 @@
-header, footer {
+header,
+footer {
     background: #fafafa;
 }
 header .content {
@@ -23,7 +24,8 @@ footer .container {
     height: 100%;
     align-items: center;
 }
-header h1, header p {
+header h1,
+header p {
     margin: 0;
 }
 header h1 {
