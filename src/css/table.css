@@ -14,10 +14,10 @@
 table {
     table-layout: fixed;
 }
-tr[data-op-type="out"] .operation-amount {
+tr[data-op-type='out'] .operation-amount {
     color: red;
 }
-tr[data-op-type="in"] .operation-amount {
+tr[data-op-type='in'] .operation-amount {
     color: var(--success-color);
 }
 .operation-amount::before {

@@ -1,5 +1,5 @@
-import { getWallet, isValidOperation, findIndex } from "../utils";
-import { WalletErrors, OpType } from "./enums";
+import { getWallet, isValidOperation, findIndex } from '../utils';
+import { WalletErrors, OpType } from './enums';
 
 class Wallet {
     #balance = 0;
@@ -11,12 +11,20 @@ class Wallet {
 
     #init() {
         const { balance, operations } = getWallet();
+        // eslint-disable-next-line no-invalid-this
         this.#balance = balance;
+        // eslint-disable-next-line no-invalid-this
         this.#operations = operations;
     }
 
     saveWallet() {
-        localStorage.setItem('wallet', JSON.stringify({ balance: this.#balance, operations: this.#operations }));
+        localStorage.setItem(
+            'wallet',
+            JSON.stringify({
+                balance: this.#balance,
+                operations: this.#operations,
+            })
+        );
     }
 
     addOperation(op) {
@@ -30,8 +38,8 @@ class Wallet {
             amount: parseFloat(amount),
             description: description.trim(),
             type,
-            date: currentMS
-        }
+            date: currentMS,
+        };
         if (type === OpType.IN) {
             this.#balance += operation.amount;
         } else if (type === OpType.OUT) {
@@ -41,7 +49,10 @@ class Wallet {
         this.saveWallet();
     }
     removeOperation(opId) {
-        const operationIndex = findIndex(this.#operations, ({ id }) => id === opId);
+        const operationIndex = findIndex(
+            this.#operations,
+            ({ id }) => id === opId
+        );
         if (operationIndex === -1) {
             throw new Error(WalletErrors.OPERATION_NOT_FOUND);
         }

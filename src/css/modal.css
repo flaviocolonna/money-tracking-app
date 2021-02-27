@@ -10,7 +10,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    transition: all ease .5s;
+    transition: all ease 0.5s;
 }
 .modal.hide {
     opacity: 0;

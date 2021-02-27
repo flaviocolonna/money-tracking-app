@@ -7,7 +7,7 @@
     padding: 0 12px;
 }
 .button-animated {
-    transition: background-size ease .3s;
+    transition: background-size ease 0.3s;
 }
 .button-animated:hover {
     background-size: 30px;

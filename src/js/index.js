@@ -1,5 +1,5 @@
-import Wallet from "./models/Wallet";
-import { SnackbarTypes } from "./models/enums";
+import Wallet from './models/Wallet';
+import { SnackbarTypes } from './models/enums';
 
 let wallet;
 let snackBarTimeout;
@@ -8,7 +8,7 @@ const hideSnackbar = function () {
     const toastElement = document.getElementById('toast');
     toastElement?.classList.remove('show');
     toastElement?.classList.remove('toast--error');
-}
+};
 const showMessage = function (msg, type) {
     const toastElement = document.getElementById('toast');
     if (!toastElement || !msg || !SnackbarTypes[type]) {
@@ -24,12 +24,12 @@ const showMessage = function (msg, type) {
     snackBarTimeout = setTimeout(function () {
         hideSnackbar();
     }, 5000);
-}
+};
 const addOperation = function (ev) {
     ev.preventDefault();
     const { target } = ev;
     const formElmnt = target.closest('form');
-    if(!formElmnt) {
+    if (!formElmnt) {
         return;
     }
     const { amount: amountInput, description: descriptionInput } = formElmnt;
@@ -50,7 +50,7 @@ const addOperation = function (ev) {
         console.error(e);
         showMessage('Operation not added!', SnackbarTypes.ERROR);
     }
-}
+};
 const removeOperation = function (id) {
     try {
         wallet.removeOperation(id);
@@ -61,7 +61,7 @@ const removeOperation = function (id) {
         console.error(e);
         showMessage('Operation not removed!', SnackbarTypes.ERROR);
     }
-}
+};
 const resetSearch = function (event) {
     event.preventDefault();
     const { target } = event;
@@ -71,19 +71,21 @@ const resetSearch = function (event) {
     }
     formElement.reset();
     updateOperationsTable();
-}
+};
 const searchOperation = function (event) {
     event.preventDefault();
-    const { searchInput: { value } } = event.target;
+    const {
+        searchInput: { value },
+    } = event.target;
     const operationsToAdd = wallet.findOperation(value);
     updateOperationsTable(operationsToAdd);
-}
+};
 const getBalance = function () {
     return wallet.getBalance();
-}
+};
 const getOperations = function () {
     return wallet.getOperations();
-}
+};
 const toggleModal = function () {
     const modalComponent = document.getElementById('modal');
     if (!modalComponent) {
@@ -95,18 +97,22 @@ const toggleModal = function () {
         return;
     }
     modalComponent.classList.add('hide');
-}
+};
 const updateBalance = function () {
     const balanceElement = document.getElementById('balance-box');
     if (!balanceElement) {
         return;
     }
     balanceElement.textContent = parseFloat(getBalance()).toLocaleString();
-}
+};
 const updateOperationsTable = function (originalOperations = getOperations()) {
     const tableContainerElement = document.getElementById('table-container');
     const tableElement = document.getElementById('table-body');
-    if(!Array.isArray(originalOperations) || !tableElement || !tableContainerElement) {
+    if (
+        !Array.isArray(originalOperations) ||
+        !tableElement ||
+        !tableContainerElement
+    ) {
         return;
     }
     const operations = [...originalOperations];
@@ -119,19 +125,23 @@ const updateOperationsTable = function (originalOperations = getOperations()) {
     operations.reverse().forEach(function (operation) {
         tableElement.appendChild(getOperationTableRow(operation));
     });
-}
+};
 const getOperationTableRow = function (operation) {
     // Add operation to table
     const trRow = document.createElement('tr');
     trRow.setAttribute('data-op-type', operation.type.toLowerCase());
-    const cells = [{
-        value: operation.description
-    }, {
-        value: parseFloat(operation.amount).toLocaleString(),
-        classes: 'operation-amount'
-    }, {
-        value: new Date(operation.date).toLocaleString(),
-    }];
+    const cells = [
+        {
+            value: operation.description,
+        },
+        {
+            value: parseFloat(operation.amount).toLocaleString(),
+            classes: 'operation-amount',
+        },
+        {
+            value: new Date(operation.date).toLocaleString(),
+        },
+    ];
     cells.forEach(function (cell) {
         const td = document.createElement('td');
         td.textContent = cell.value;
@@ -142,7 +152,7 @@ const getOperationTableRow = function (operation) {
     });
     trRow.appendChild(getDeleteActionBtn(operation));
     return trRow;
-}
+};
 const getDeleteActionBtn = function (operation) {
     const tdAction = document.createElement('td');
     tdAction.className = 'align-text-center';
@@ -150,10 +160,10 @@ const getDeleteActionBtn = function (operation) {
     actionButton.className = 'button button-icon button-animated icon-delete';
     actionButton.onclick = function () {
         removeOperation(operation.id);
-    }
+    };
     tdAction.appendChild(actionButton);
     return tdAction;
-}
+};
 const onSearchInputChange = function (event) {
     const { value: searchValue } = event.target;
     const resetSearchElmnt = document.getElementById('reset-search-btn');
@@ -165,7 +175,7 @@ const onSearchInputChange = function (event) {
         return;
     }
     resetSearchElmnt.classList.remove('hide');
-}
+};
 window.hideSnackbar = hideSnackbar;
 window.addOperation = addOperation;
 window.toggleModal = toggleModal;

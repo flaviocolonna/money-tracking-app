@@ -1,4 +1,4 @@
-import { OpType } from "./models/enums";
+import { OpType } from './models/enums';
 
 function findIndex(list, cb) {
     for (let i = 0; i < list.length; i++) {
@@ -9,22 +9,20 @@ function findIndex(list, cb) {
     return -1;
 }
 
-const isValidOperation = op =>
-    op?.description && parseFloat(op?.amount) > 0 && typeof OpType[op?.type] !== 'undefined';
+const isValidOperation = (op) =>
+    op?.description &&
+    parseFloat(op?.amount) > 0 &&
+    typeof OpType[op?.type] !== 'undefined';
 
 function getWallet() {
     const wallet = localStorage.getItem('wallet');
     if (!wallet) {
         return {
             balance: 0,
-            operations: []
-        }
+            operations: [],
+        };
     }
     return JSON.parse(wallet);
 }
 
-export {
-    getWallet,
-    isValidOperation,
-    findIndex
-}
+export { getWallet, isValidOperation, findIndex };
