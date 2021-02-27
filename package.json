@@ -9,7 +9,12 @@
     "dev": "gulp build --dev",
     "prod": "gulp build --prod",
     "prod:debug": "npm run prod -- --debug",
-    "format": "prettier src/**/* --write"
+    "postinstall": "husky install",
+    "husky-add-hook": "husky add",
+    "preCommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": ["eslint", "prettier --write"]
   },
   "repository": {
     "type": "git",
@@ -49,7 +54,9 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-svgmin": "^3.0.0",
     "gulp-uglify": "^3.0.2",
+    "husky": "^5.1.1",
     "jest": "^26.6.3",
+    "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
