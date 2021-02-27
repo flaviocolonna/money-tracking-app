@@ -11,7 +11,9 @@ class Wallet {
 
     #init() {
         const { balance, operations } = getWallet();
+        // eslint-disable-next-line no-invalid-this
         this.#balance = balance;
+        // eslint-disable-next-line no-invalid-this
         this.#operations = operations;
     }
 
