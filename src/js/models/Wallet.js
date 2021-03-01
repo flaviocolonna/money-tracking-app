@@ -72,14 +72,9 @@ class Wallet extends EventManager {
         if (!val) {
             return this.#operations;
         }
-        const operationsFound = [];
-        for (let i = 0; i < this.#operations.length; i++) {
-            const { description } = this.#operations[i];
-            if (description.toLowerCase().includes(val)) {
-                operationsFound.push(this.#operations[i]);
-            }
-        }
-        return operationsFound;
+        return this.#operations.filter(({ description }) =>
+            description.toLowerCase().includes(val)
+        );
     }
     getBalance() {
         return this.#balance;
