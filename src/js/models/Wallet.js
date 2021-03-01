@@ -1,4 +1,4 @@
-import { getWallet, isValidOperation, findIndex } from '../utils';
+import { getWallet, isValidOperation } from '../utils';
 import { WalletErrors, OpType, WalletSubjects } from './enums';
 import EventManager from './EventManager';
 
@@ -52,8 +52,7 @@ class Wallet extends EventManager {
         this.saveWallet();
     }
     removeOperation(opId) {
-        const operationIndex = findIndex(
-            this.#operations,
+        const operationIndex = this.#operations.findIndex(
             ({ id }) => id === opId
         );
         if (operationIndex === -1) {

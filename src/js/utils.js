@@ -1,14 +1,5 @@
 import { OpType } from './models/enums';
 
-function findIndex(list, cb) {
-    for (let i = 0; i < list.length; i++) {
-        if (cb(list[i])) {
-            return i;
-        }
-    }
-    return -1;
-}
-
 const isValidOperation = (op) =>
     op?.description &&
     parseFloat(op?.amount) > 0 &&
@@ -25,4 +16,4 @@ function getWallet() {
     return JSON.parse(wallet);
 }
 
-export { getWallet, isValidOperation, findIndex };
+export { getWallet, isValidOperation };
