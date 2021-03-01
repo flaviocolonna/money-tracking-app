@@ -1,7 +1,6 @@
 import Wallet from './models/Wallet';
-import { SnackbarTypes } from './models/enums';
+import { SnackbarTypes, WalletSubjects } from './models/enums';
 
-let wallet;
 let snackBarTimeout;
 
 const hideSnackbar = function () {
@@ -40,10 +39,8 @@ const addOperation = function (ev) {
         type,
     };
     try {
-        wallet.addOperation(operation);
-        updateBalance();
+        Wallet.addOperation(operation);
         formElmnt.reset();
-        updateOperationsTable();
         toggleModal();
         showMessage('Operation added successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
@@ -53,9 +50,7 @@ const addOperation = function (ev) {
 };
 const removeOperation = function (id) {
     try {
-        wallet.removeOperation(id);
-        updateOperationsTable();
-        updateBalance();
+        Wallet.removeOperation(id);
         showMessage('Operation removed successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
@@ -77,14 +72,14 @@ const searchOperation = function (event) {
     const {
         searchInput: { value },
     } = event.target;
-    const operationsToAdd = wallet.findOperation(value);
+    const operationsToAdd = Wallet.findOperation(value);
     updateOperationsTable(operationsToAdd);
 };
 const getBalance = function () {
-    return wallet.getBalance();
+    return Wallet.getBalance();
 };
 const getOperations = function () {
-    return wallet.getOperations();
+    return Wallet.getOperations();
 };
 const toggleModal = function () {
     const modalComponent = document.getElementById('modal');
@@ -182,8 +177,12 @@ window.toggleModal = toggleModal;
 window.searchOperation = searchOperation;
 window.resetSearch = resetSearch;
 window.onSearchInputChange = onSearchInputChange;
+
+Wallet.subscribe(WalletSubjects.WALLET_SAVED, () => {
+    updateBalance();
+    updateOperationsTable();
+});
 window.addEventListener('DOMContentLoaded', function () {
-    wallet = new Wallet();
     updateBalance();
     updateOperationsTable();
 });

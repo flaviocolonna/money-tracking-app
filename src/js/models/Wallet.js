@@ -1,11 +1,13 @@
-import { getWallet, isValidOperation, findIndex } from '../utils';
-import { WalletErrors, OpType } from './enums';
+import { getWallet, isValidOperation } from '../utils';
+import { WalletErrors, OpType, WalletSubjects } from './enums';
+import EventManager from './EventManager';
 
-class Wallet {
+class Wallet extends EventManager {
     #balance = 0;
     #operations = [];
 
     constructor() {
+        super();
         this.#init();
     }
 
@@ -25,6 +27,7 @@ class Wallet {
                 operations: this.#operations,
             })
         );
+        this.trigger(WalletSubjects.WALLET_SAVED);
     }
 
     addOperation(op) {
@@ -49,8 +52,7 @@ class Wallet {
         this.saveWallet();
     }
     removeOperation(opId) {
-        const operationIndex = findIndex(
-            this.#operations,
+        const operationIndex = this.#operations.findIndex(
             ({ id }) => id === opId
         );
         if (operationIndex === -1) {
@@ -70,14 +72,9 @@ class Wallet {
         if (!val) {
             return this.#operations;
         }
-        const operationsFound = [];
-        for (let i = 0; i < this.#operations.length; i++) {
-            const { description } = this.#operations[i];
-            if (description.toLowerCase().includes(val)) {
-                operationsFound.push(this.#operations[i]);
-            }
-        }
-        return operationsFound;
+        return this.#operations.filter(({ description }) =>
+            description.toLowerCase().includes(val)
+        );
     }
     getBalance() {
         return this.#balance;
@@ -87,4 +84,4 @@ class Wallet {
     }
 }
 
-export default Wallet;
+export default new Wallet();
