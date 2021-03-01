@@ -10,4 +10,7 @@ const SnackbarTypes = Object.freeze({
     SUCCESS: 'SUCCESS',
     ERROR: 'ERROR',
 });
-export { OpType, WalletErrors, SnackbarTypes };
+const WalletSubjects = Object.freeze({
+    WALLET_SAVED: 'WALLET_SAVED',
+});
+export { OpType, WalletErrors, SnackbarTypes, WalletSubjects };

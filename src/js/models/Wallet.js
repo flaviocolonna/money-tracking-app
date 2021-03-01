@@ -1,11 +1,13 @@
 import { getWallet, isValidOperation, findIndex } from '../utils';
-import { WalletErrors, OpType } from './enums';
+import { WalletErrors, OpType, WalletSubjects } from './enums';
+import EventManager from './EventManager';
 
-class Wallet {
+class Wallet extends EventManager {
     #balance = 0;
     #operations = [];
 
     constructor() {
+        super();
         this.#init();
     }
 
@@ -25,6 +27,7 @@ class Wallet {
                 operations: this.#operations,
             })
         );
+        this.trigger(WalletSubjects.WALLET_SAVED);
     }
 
     addOperation(op) {

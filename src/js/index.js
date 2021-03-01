@@ -1,5 +1,5 @@
 import Wallet from './models/Wallet';
-import { SnackbarTypes } from './models/enums';
+import { SnackbarTypes, WalletSubjects } from './models/enums';
 
 let snackBarTimeout;
 
@@ -40,9 +40,7 @@ const addOperation = function (ev) {
     };
     try {
         Wallet.addOperation(operation);
-        updateBalance();
         formElmnt.reset();
-        updateOperationsTable();
         toggleModal();
         showMessage('Operation added successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
@@ -53,8 +51,6 @@ const addOperation = function (ev) {
 const removeOperation = function (id) {
     try {
         Wallet.removeOperation(id);
-        updateOperationsTable();
-        updateBalance();
         showMessage('Operation removed successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
@@ -181,6 +177,11 @@ window.toggleModal = toggleModal;
 window.searchOperation = searchOperation;
 window.resetSearch = resetSearch;
 window.onSearchInputChange = onSearchInputChange;
+
+Wallet.subscribe(WalletSubjects.WALLET_SAVED, () => {
+    updateBalance();
+    updateOperationsTable();
+});
 window.addEventListener('DOMContentLoaded', function () {
     updateBalance();
     updateOperationsTable();
