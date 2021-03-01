@@ -1,7 +1,6 @@
 import Wallet from './models/Wallet';
 import { SnackbarTypes } from './models/enums';
 
-let wallet;
 let snackBarTimeout;
 
 const hideSnackbar = function () {
@@ -40,7 +39,7 @@ const addOperation = function (ev) {
         type,
     };
     try {
-        wallet.addOperation(operation);
+        Wallet.addOperation(operation);
         updateBalance();
         formElmnt.reset();
         updateOperationsTable();
@@ -53,7 +52,7 @@ const addOperation = function (ev) {
 };
 const removeOperation = function (id) {
     try {
-        wallet.removeOperation(id);
+        Wallet.removeOperation(id);
         updateOperationsTable();
         updateBalance();
         showMessage('Operation removed successfully!', SnackbarTypes.SUCCESS);
@@ -77,14 +76,14 @@ const searchOperation = function (event) {
     const {
         searchInput: { value },
     } = event.target;
-    const operationsToAdd = wallet.findOperation(value);
+    const operationsToAdd = Wallet.findOperation(value);
     updateOperationsTable(operationsToAdd);
 };
 const getBalance = function () {
-    return wallet.getBalance();
+    return Wallet.getBalance();
 };
 const getOperations = function () {
-    return wallet.getOperations();
+    return Wallet.getOperations();
 };
 const toggleModal = function () {
     const modalComponent = document.getElementById('modal');
@@ -183,7 +182,6 @@ window.searchOperation = searchOperation;
 window.resetSearch = resetSearch;
 window.onSearchInputChange = onSearchInputChange;
 window.addEventListener('DOMContentLoaded', function () {
-    wallet = new Wallet();
     updateBalance();
     updateOperationsTable();
 });

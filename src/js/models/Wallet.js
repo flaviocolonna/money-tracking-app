@@ -87,4 +87,4 @@ class Wallet {
     }
 }
 
-export default Wallet;
+export default new Wallet();
