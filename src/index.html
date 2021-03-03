@@ -1,111 +1,173 @@
 <html>
+    <head>
+        <title>Money tracking app</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+            integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
+            crossorigin="anonymous"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- custom:css -->
+        <!-- endinject -->
+    </head>
 
-<head>
-    <title>Money tracking app</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
-        integrity="sha512-EZLkOqwILORob+p0BXZc+Vm3RgJBOe1Iq/0fiI7r/wJgzOFZMlsqTa29UEl6v6U6gsV4uIpsNZoV32YZqrCRCQ=="
-        crossorigin="anonymous" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- custom:css -->
-    <!-- endinject -->
-</head>
+    <body>
+        <header>
+            <div class="content">
+                <div class="brand-title">
+                    <h1>Money tracking app</h1>
+                </div>
+                <div class="header-options">
+                    <p>
+                        Balance:
+                        <strong
+                            id="balance-box"
+                            data-test-id="balance-box"
+                        ></strong>
+                    </p>
+                </div>
+            </div>
+        </header>
+        <main class="container">
+            <!-- Start Search container -->
+            <div class="row">
+                <div class="custom-input-container">
+                    <form onsubmit="searchOperation(event)">
+                        <label for="search-input">Search</label>
+                        <input
+                            type="text"
+                            placeholder="Bill"
+                            name="searchInput"
+                            id="search-input"
+                            oninput="onSearchInputChange(event)"
+                        />
+                        <span class="custom-input-container__actions">
+                            <button
+                                type="button"
+                                class="custom-input-container__actions__action button-icon icon-close hide"
+                                id="reset-search-btn"
+                                data-variant="secondary"
+                                onclick="resetSearch(event)"
+                            ></button>
+                            <button
+                                class="custom-input-container__actions__action button-icon icon-search"
+                            ></button>
+                        </span>
+                    </form>
+                </div>
+            </div>
+            <!-- End Search container -->
+            <!-- Start Table container -->
+            <div class="row" id="table-container">
+                <table class="u-full-width">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th aria-label="Options"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" data-test-id="table-body"></tbody>
+                </table>
+                <p class="fallback-message">No operations found</p>
+            </div>
+            <!-- End Table container -->
+            <!-- Start Modal container -->
+            <div class="modal hide" id="modal" data-test-id="modal">
+                <div class="modal__header row">
+                    <h2>Add operation</h2>
+                    <button
+                        class="button button-icon icon-close modal__header__action"
+                        onclick="toggleModal()"
+                    ></button>
+                </div>
+                <div class="modal__main">
+                    <form data-test-id="add-operation-form">
+                        <div class="row">
+                            <label for="amount-input">Amount</label>
+                            <input
+                                id="amount-input"
+                                class="custom-input u-full-width"
+                                placeholder="10"
+                                type="number"
+                                min="0.01"
+                                step="0.01"
+                                name="amount"
+                                required
+                            />
+                            <p class="label-error">At least more than zero</p>
+                        </div>
+                        <div class="row">
+                            <label for="description-input">Description</label>
+                            <input
+                                id="description-input"
+                                class="custom-input u-full-width"
+                                placeholder="Bill"
+                                type="text"
+                                minlength="1"
+                                name="description"
+                                required
+                            />
+                            <p class="label-error">
+                                At least more one character
+                            </p>
+                        </div>
+                        <div class="row">
+                            <button
+                                class="button-success"
+                                type="button"
+                                data-test-id="add-income-op-btn"
+                                onclick="addOperation(event)"
+                                data-type="IN"
+                            >
+                                Add Income
+                            </button>
+                            <button
+                                class="button-error"
+                                type="button"
+                                data-test-id="add-expense-op-btn"
+                                onclick="addOperation(event)"
+                                data-type="OUT"
+                            >
+                                Add Expense
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- End Modal container -->
+            <!-- Start Floating Button container -->
+            <div class="container button-float-container">
+                <button
+                    class="button-float button-icon icon-add"
+                    data-test-id="show-modal-btn"
+                    onclick="toggleModal()"
+                ></button>
+            </div>
+            <!-- End Floating Button container -->
 
-<body>
-    <header>
-        <div class="content">
-            <div class="brand-title">
-                <h1>Money tracking app</h1>
+            <!-- Start Toast container -->
+            <div class="toast" id="toast">
+                <p class="toast__message"></p>
+                <span
+                    class="icon icon-close-white toast__action"
+                    onclick="hideSnackbar()"
+                ></span>
             </div>
-            <div class="header-options">
-                <p>Balance: <strong id="balance-box"></strong></p>
+            <!-- End Toast container -->
+        </main>
+        <footer>
+            <div class="container">
+                <span>Developed by Flavio</span>
             </div>
-        </div>
-    </header>
-    <main class="container">
-        <!-- Start Search container -->
-        <div class="row">
-            <div class="custom-input-container">
-                <form onsubmit="searchOperation(event)">
-                    <label for="search-input">Search</label>
-                    <input type="text" placeholder="Bill" name="searchInput" id="search-input" oninput="onSearchInputChange(event)" />
-                    <span class="custom-input-container__actions">
-                        <button
-                            type="button"
-                            class="custom-input-container__actions__action button-icon icon-close hide"
-                            id="reset-search-btn"
-                            data-variant="secondary"
-                            onclick="resetSearch(event)"></button>
-                        <button class="custom-input-container__actions__action button-icon icon-search"></button>
-                    </span>
-                </form>
-            </div>
-        </div>
-        <!-- End Search container -->
-        <!-- Start Table container -->
-        <div class="row" id="table-container">
-            <table class="u-full-width">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th aria-label="Options"></th>
-                    </tr>
-                </thead>
-                <tbody id="table-body"></tbody>
-            </table>
-            <p class="fallback-message">No operations found</p>
-        </div>
-        <!-- End Table container -->
-        <!-- Start Modal container -->
-        <div class="modal hide" id="modal">
-            <div class="modal__header row">
-                <h2>Add operation</h2>
-                <button class="button button-icon icon-close modal__header__action" onclick="toggleModal()"></button>
-            </div>
-            <div class="modal__main">
-                <form>
-                    <div class="row">
-                        <label for="amount-input">Amount</label>
-                        <input id="amount-input" class="custom-input u-full-width" placeholder="10" type="number"
-                            min="0.01" step="0.01" name="amount" required />
-                        <p class="label-error">At least more than zero</p>
-                    </div>
-                    <div class="row">
-                        <label for="description-input">Description</label>
-                        <input id="description-input" class="custom-input u-full-width" placeholder="Bill" type="text"
-                            minlength="1" name="description" required />
-                        <p class="label-error">At least more one character</p>
-                    </div>
-                    <div class="row">
-                        <button class="button-success" type="button" onclick="addOperation(event)" data-type="IN">Add Income</button>
-                        <button class="button-error" type="button" onclick="addOperation(event)" data-type="OUT">Add Expense</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- End Modal container -->
-        <!-- Start Floating Button container -->
-        <div class="container button-float-container">
-            <button class="button-float button-icon icon-add" onclick="toggleModal()"></button>
-        </div>
-        <!-- End Floating Button container -->
-
-        <!-- Start Toast container -->
-        <div class="toast" id="toast">
-            <p class="toast__message"></p>
-            <span class="icon icon-close-white toast__action" onclick="hideSnackbar()"></span>
-        </div>
-        <!-- End Toast container -->
-    </main>
-    <footer>
-        <div class="container">
-            <span>Developed by Flavio</span>
-        </div>
-    </footer>
-    <!-- custom:js -->
-    <!-- endinject -->
-</body>
-
+        </footer>
+        <!-- custom:js -->
+        <!-- endinject -->
+    </body>
 </html>

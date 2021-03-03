@@ -5,6 +5,7 @@
   "main": "src/js/index.js",
   "scripts": {
     "test": "jest --collect-coverage",
+    "test:e2e": "jest .*.test.js",
     "test:dev": "npm run test -- --watch",
     "dev": "gulp build --dev",
     "prod": "gulp build --prod",
@@ -24,6 +25,9 @@
       "eslint",
       "prettier --write"
     ]
+  },
+  "jest": {
+    "preset": "jest-puppeteer"
   },
   "repository": {
     "type": "git",
