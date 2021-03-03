@@ -44,6 +44,7 @@
                             placeholder="Bill"
                             name="searchInput"
                             id="search-input"
+                            data-test-id="search-input"
                             oninput="onSearchInputChange(event)"
                         />
                         <span class="custom-input-container__actions">
@@ -55,6 +56,7 @@
                                 onclick="resetSearch(event)"
                             ></button>
                             <button
+                                data-test-id="search-btn-submit"
                                 class="custom-input-container__actions__action button-icon icon-search"
                             ></button>
                         </span>

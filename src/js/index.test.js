@@ -4,6 +4,10 @@ describe('E2E: testing suite', function () {
     beforeAll(async function () {
         await page.goto('http://localhost:3001');
     });
+    beforeEach(async function () {
+        await page.evaluate(() => localStorage.clear());
+        await page.reload();
+    });
     it('No operations found is shown', async function () {
         await expect(page).toMatch('No operations found');
     });
@@ -29,6 +33,25 @@ describe('E2E: testing suite', function () {
             balanceElmnt
         );
         expect(balanceElmntText).toBe('-100');
+        const tableElmnt = await page.$("tbody[data-test-id='table-body']");
+        const tableElmntChildCount = await page.evaluate(
+            (elmnt) => elmnt.children.length,
+            tableElmnt
+        );
+        expect(tableElmntChildCount).toBe(1);
+    }, 25000);
+    it('Search: find a valid operation', async function () {
+        await expect(page).toClick("button[data-test-id='show-modal-btn']");
+        await expect(page).toFillForm(
+            "form[data-test-id='add-operation-form']",
+            {
+                amount: '100',
+                description: 'Bill',
+            }
+        );
+        await expect(page).toClick("button[data-test-id='add-expense-op-btn']");
+        await expect(page).toFill("input[data-test-id='search-input']", 'bi');
+        await expect(page).toClick("button[data-test-id='search-btn-submit']");
         const tableElmnt = await page.$("tbody[data-test-id='table-body']");
         const tableElmntChildCount = await page.evaluate(
             (elmnt) => elmnt.children.length,
