@@ -1,6 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import Wallet from './models/Wallet';
+import ConfigService from './services/ConfigService';
 import { SnackbarTypes, WalletSubjects } from './models/enums';
 
 /**
@@ -61,7 +62,7 @@ const showMessage = function (msg, type) {
  * @void
  * @param {MouseEvent} ev - Event object received from the function call
  */
-const addOperation = function (ev) {
+const addOperation = async function (ev) {
     ev.preventDefault();
     const { target } = ev;
     const formElmnt = target.closest('form');
@@ -76,7 +77,7 @@ const addOperation = function (ev) {
         type,
     };
     try {
-        Wallet.addOperation(operation);
+        await Wallet.addOperation(operation);
         formElmnt.reset();
         toggleModal();
         showMessage('Operation added successfully!', SnackbarTypes.SUCCESS);
@@ -302,7 +303,11 @@ Wallet.subscribe(WalletSubjects.WALLET_SAVED, () => {
     updateBalance();
     updateOperationsTable();
 });
-window.addEventListener('DOMContentLoaded', function () {
-    updateBalance();
-    updateOperationsTable();
+window.addEventListener('DOMContentLoaded', function initApp() {
+    ConfigService.init()
+        .then(() => Wallet.updateWallet())
+        .then(() => {
+            updateBalance();
+            updateOperationsTable();
+        });
 });

@@ -41,4 +41,10 @@ const SnackbarTypes = Object.freeze({
 const WalletSubjects = Object.freeze({
     WALLET_SAVED: 'WALLET_SAVED',
 });
-export { OpType, WalletErrors, SnackbarTypes, WalletSubjects };
+const Endpoints = Object.freeze({
+    CONFIG: 'env.json',
+    GET_WALLET: 'wallet',
+    POST_OPERATION: 'wallet/operation',
+});
+
+export { OpType, WalletErrors, SnackbarTypes, WalletSubjects, Endpoints };
