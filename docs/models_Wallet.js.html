@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Source: models/Wallet.js | Money tracking</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/tui-doc.css">
+
+    
+</head>
+<body>
+<nav class="lnb" id="lnb">
+    <div class="logo" style="">
+        
+            <img src="img/toast-ui.png" width="100%" height="100%">
+        
+    </div>
+    <div class="title">
+        <h1><a href="index.html" class="link">Money tracking</a></h1>
+        
+    </div>
+    <div class="search-container" id="search-container">
+        <input type="text" placeholder="Search">
+        <ul></ul>
+    </div>
+    
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="EventManager.html">EventManager</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="EventManager_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="EventManager.html#subscribe">subscribe</a></li><li><a href="EventManager.html#trigger">trigger</a></li><li><a href="EventManager.html#unsubscribe">unsubscribe</a></li></ul></div></li><li><a href="Wallet.html">Wallet</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Wallet_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Wallet.html#addOperation">addOperation</a></li><li><a href="Wallet.html#findOperation">findOperation</a></li><li><a href="Wallet.html#getBalance">getBalance</a></li><li><a href="Wallet.html#getOperations">getOperations</a></li><li><a href="Wallet.html#removeOperation">removeOperation</a></li><li><a href="Wallet.html#saveWallet">saveWallet</a></li><li><a href="Wallet.html#subscribe">subscribe</a></li><li><a href="Wallet.html#trigger">trigger</a></li><li><a href="Wallet.html#unsubscribe">unsubscribe</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Namespaces</h3><ul><li><a href="UIHelpers.html">UIHelpers</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="UIHelpers_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="UIHelpers.html#.getDeleteActionBtn">getDeleteActionBtn</a></li><li><a href="UIHelpers.html#.getOperationTableRow">getOperationTableRow</a></li><li><a href="UIHelpers.html#.showMessage">showMessage</a></li><li><a href="UIHelpers.html#.updateBalance">updateBalance</a></li><li><a href="UIHelpers.html#.updateOperationsTable">updateOperationsTable</a></li></ul></div></li><li><a href="UIMethods.html">UIMethods</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="UIMethods_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="UIMethods.html#.addOperation">addOperation</a></li><li><a href="UIMethods.html#.hideSnackbar">hideSnackbar</a></li><li><a href="UIMethods.html#.onSearchInputChange">onSearchInputChange</a></li><li><a href="UIMethods.html#.removeOperation">removeOperation</a></li><li><a href="UIMethods.html#.resetSearch">resetSearch</a></li><li><a href="UIMethods.html#.searchOperation">searchOperation</a></li><li><a href="UIMethods.html#.toggleModal">toggleModal</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#getBalance">getBalance</a></li><li><a href="global.html#getOperations">getOperations</a></li><li><a href="global.html#getWallet">getWallet</a></li><li><a href="global.html#isValidOperation">isValidOperation</a></li><li class="hidden"><a href="global.html#Operation">Operation</a></li><li class="hidden"><a href="global.html#OperationTypeInterface">OperationTypeInterface</a></li><li><a href="global.html#OpType">OpType</a></li><li class="hidden"><a href="global.html#SnackbarTypeInterface">SnackbarTypeInterface</a></li><li><a href="global.html#SnackbarTypes">SnackbarTypes</a></li><li><a href="global.html#WalletErrors">WalletErrors</a></li><li class="hidden"><a href="global.html#WalletErrorsInterface">WalletErrorsInterface</a></li><li class="hidden"><a href="global.html#WalletInterface">WalletInterface</a></li></ul></div>
+</nav>
+<div id="resizer"></div>
+
+<div class="main" id="main">
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { getWallet, isValidOperation } from '../utils';
+import { WalletErrors, OpType, WalletSubjects } from './enums';
+import EventManager from './EventManager';
+/**
+ * @typedef {object} Operation
+ * @property {number} id
+ * @property {number} date
+ * @property {number} amount
+ * @property {string} description
+ * @property {OperationTypeInterface} type
+ */
+/**
+ * @typedef {Object} WalletInterface
+ * @property {number} balance
+ * @property {Array&lt;Operation>} operations
+ */
+
+/**
+ * Wallet namespace
+ * @constructor
+ * @class
+ * @extends EventManager
+ */
+class Wallet extends EventManager {
+    #balance = 0;
+    #operations = [];
+
+    constructor() {
+        super();
+        this.#init();
+    }
+
+    /**
+     * Initialize the wallet by getting its saved version.
+     * @name init
+     * @function
+     * @private
+     * @instance
+     * @void
+     */
+    #init() {
+        const { balance, operations } = getWallet();
+        // eslint-disable-next-line no-invalid-this
+        this.#balance = balance;
+        // eslint-disable-next-line no-invalid-this
+        this.#operations = operations;
+    }
+
+    /**
+     * Save the wallet in the local storage
+     * @name saveWallet
+     * @memberof Wallet
+     * @instance
+     * @function
+     * @void
+     */
+    saveWallet() {
+        localStorage.setItem(
+            'wallet',
+            JSON.stringify({
+                balance: this.#balance,
+                operations: this.#operations,
+            })
+        );
+        this.trigger(WalletSubjects.WALLET_SAVED);
+    }
+
+    /**
+     * Add the operation to the wallet and save it
+     * @name addOperation
+     * @memberof Wallet
+     * @void
+     * @function
+     * @instance
+     * @param {Operation} op - Operation to add
+     * @throws {Error} INVALID_OPERATION
+     */
+    addOperation(op) {
+        if (!isValidOperation(op)) {
+            throw new Error(WalletErrors.INVALID_OPERATION);
+        }
+        const { description, type, amount } = op;
+        const currentMS = new Date().getTime();
+        const operation = {
+            id: currentMS,
+            amount: parseFloat(amount),
+            description: description.trim(),
+            type,
+            date: currentMS,
+        };
+        if (type === OpType.IN) {
+            this.#balance += operation.amount;
+        } else if (type === OpType.OUT) {
+            this.#balance -= operation.amount;
+        }
+        this.#operations.push(operation);
+        this.saveWallet();
+    }
+    /**
+     * Remove the operation found with the id passed from the wallet and save it
+     * @name removeOperation
+     * @memberof Wallet
+     * @void
+     * @function
+     * @instance
+     * @throws {Error} OPERATION_NOT_FOUND
+     * @param {number} opId - Operation's id to remove
+     */
+    removeOperation(opId) {
+        const operationIndex = this.#operations.findIndex(
+            ({ id }) => id === opId
+        );
+        if (operationIndex === -1) {
+            throw new Error(WalletErrors.OPERATION_NOT_FOUND);
+        }
+        const { type, amount } = this.#operations[operationIndex];
+        if (type === OpType.IN) {
+            this.#balance -= amount;
+        } else if (type === OpType.OUT) {
+            this.#balance += amount;
+        }
+        this.#operations.splice(operationIndex, 1);
+        this.saveWallet();
+    }
+    /**
+     * Find the list of the operations that match partial description with the search value.
+     * @name findOperation
+     * @memberof Wallet
+     * @function
+     * @instance
+     * @param {string} searchValue - Term to search
+     * @return {Array&lt;Operation>}
+     */
+    findOperation(searchValue) {
+        const val = searchValue?.toLowerCase().trim();
+        if (!val) {
+            return this.#operations;
+        }
+        return this.#operations.filter(({ description }) =>
+            description.toLowerCase().includes(val)
+        );
+    }
+    /**
+     * It returns the balance of the wallet.
+     * @name getBalance
+     * @memberof Wallet
+     * @function
+     * @instance
+     * @return {boolean}
+     */
+    getBalance() {
+        return this.#balance;
+    }
+    /**
+     * It returns the list of the operations.
+     * @name getOperations
+     * @memberof Wallet
+     * @function
+     * @instance
+     * @return {Array&lt;Operation>}
+     */
+    getOperations() {
+        return this.#operations;
+    }
+}
+
+export default new Wallet();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<footer>
+    <img class="logo" src="img/toast-ui.png" style="">
+    <div class="footer-text">NHN Entertainment. Frontend Development Lab</div>
+</footer>
+<script>prettyPrint();</script>
+<script src="scripts/jquery.min.js"></script>
+<script src="scripts/tui-doc.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+    <script>
+        var id = '_sub'.replace(/"/g, '_');
+        var selectedApi = document.getElementById(id); // do not use jquery selector
+        var $selectedApi = $(selectedApi);
+
+        $selectedApi.removeClass('hidden');
+        $selectedApi.parent().find('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        showLnbApi();
+    </script>
+
+</body>
+</html>
