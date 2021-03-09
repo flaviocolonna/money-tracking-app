@@ -1,7 +1,19 @@
 import { getWallet, isValidOperation } from '../utils';
 import { WalletErrors, OpType, WalletSubjects } from './enums';
 import EventManager from './EventManager';
-
+/**
+ * @typedef {object} Operation
+ * @property {number} id
+ * @property {number} date
+ * @property {number} amount
+ * @property {string} description
+ * @property {string} type
+ */
+/**
+ * @typedef {Object} Wallet
+ * @property {number} balance
+ * @property {Array<Operation>} operations
+ */
 class Wallet extends EventManager {
     #balance = 0;
     #operations = [];
@@ -19,6 +31,12 @@ class Wallet extends EventManager {
         this.#operations = operations;
     }
 
+    /**
+     * Save the wallet in the local storage
+     * @name saveWallet
+     * @function
+     * @void
+     */
     saveWallet() {
         localStorage.setItem(
             'wallet',
@@ -30,6 +48,13 @@ class Wallet extends EventManager {
         this.trigger(WalletSubjects.WALLET_SAVED);
     }
 
+    /**
+     * Add the operation to the wallet and save it
+     * @name addOperation
+     * @void
+     * @function
+     * @param {Operation} op - Operation to add
+     */
     addOperation(op) {
         if (!isValidOperation(op)) {
             throw new Error(WalletErrors.INVALID_OPERATION);
@@ -51,6 +76,13 @@ class Wallet extends EventManager {
         this.#operations.push(operation);
         this.saveWallet();
     }
+    /**
+     * Remove the operation found with the id passed from the wallet and save it
+     * @name removeOperation
+     * @void
+     * @function
+     * @param {number} opId - Operation's id to remove
+     */
     removeOperation(opId) {
         const operationIndex = this.#operations.findIndex(
             ({ id }) => id === opId
@@ -67,6 +99,13 @@ class Wallet extends EventManager {
         this.#operations.splice(operationIndex, 1);
         this.saveWallet();
     }
+    /**
+     * Find the list of the operations that match partial description with the search value.
+     * @name findOperation
+     * @function
+     * @param {string} searchValue - Term to search
+     * @return {Array<Operation>}
+     */
     findOperation(searchValue) {
         const val = searchValue?.toLowerCase().trim();
         if (!val) {
@@ -76,9 +115,21 @@ class Wallet extends EventManager {
             description.toLowerCase().includes(val)
         );
     }
+    /**
+     * It returns the balance of the wallet.
+     * @name getBalance
+     * @function
+     * @return {boolean}
+     */
     getBalance() {
         return this.#balance;
     }
+    /**
+     * It returns the list of the operations.
+     * @name getOperations
+     * @function
+     * @return {Array<Operation>}
+     */
     getOperations() {
         return this.#operations;
     }

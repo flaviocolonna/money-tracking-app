@@ -4,14 +4,6 @@ import Wallet from './models/Wallet';
 import { SnackbarTypes, WalletSubjects } from './models/enums';
 
 let snackBarTimeout;
-/**
- * @typedef {object} Operation
- * @property {number} id
- * @property {number} date
- * @property {number} amount
- * @property {string} description
- * @property {string} type
- */
 
 /**
  * Invoke it to close the snackbar.

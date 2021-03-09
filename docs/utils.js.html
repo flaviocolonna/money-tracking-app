@@ -1,8 +1,10 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home | Money tracking</title>
+    <title>Source: utils.js | Money tracking</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -42,19 +44,44 @@
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { OpType } from './models/enums';
 
 
+/**
+ * Check if an operation is valid based on amount, description and type.
+ * @name isValidOperation
+ * @function
+ * @param {Operation} op - Operation to check
+ * @return {boolean}
+ */
+const isValidOperation = (op) =>
+    op?.description &amp;&amp;
+    parseFloat(op?.amount) > 0 &amp;&amp;
+    typeof OpType[op?.type] !== 'undefined';
 
+/**
+ * Get the saved wallet.
+ * @name getWallet
+ * @function
+ * @return {Wallet}
+ */
+function getWallet() {
+    const wallet = localStorage.getItem('wallet');
+    if (!wallet) {
+        return {
+            balance: 0,
+            operations: [],
+        };
+    }
+    return JSON.parse(wallet);
+}
 
-
-
-
-
-
-    
-
-
-
+export { getWallet, isValidOperation };
+</code></pre>
+        </article>
+    </section>
 
 
 
@@ -71,7 +98,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'package:undefined_sub'.replace(/"/g, '_');
+        var id = '_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 
