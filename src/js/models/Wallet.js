@@ -73,6 +73,7 @@ class Wallet extends EventManager {
      * @function
      * @instance
      * @param {Operation} op - Operation to add
+     * @throws {Error} INVALID_OPERATION
      */
     addOperation(op) {
         if (!isValidOperation(op)) {
@@ -102,6 +103,7 @@ class Wallet extends EventManager {
      * @void
      * @function
      * @instance
+     * @throws {Error} OPERATION_NOT_FOUND
      * @param {number} opId - Operation's id to remove
      */
     removeOperation(opId) {

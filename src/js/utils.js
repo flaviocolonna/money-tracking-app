@@ -16,7 +16,7 @@ const isValidOperation = (op) =>
  * Get the saved wallet.
  * @name getWallet
  * @function
- * @return {Wallet}
+ * @return {WalletInterface}
  */
 function getWallet() {
     const wallet = localStorage.getItem('wallet');

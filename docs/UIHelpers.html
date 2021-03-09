@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Class: EventManager | Money tracking</title>
+    <title>Namespace: UIHelpers | Money tracking</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -46,7 +46,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>EventManager<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2>UIHelpers</h2>
         
     
 </header>
@@ -56,49 +56,10 @@
         <div class="container-overview">
         
             
-
-<dt>
-    
-        <h4 class="name" id="EventManager">
+                <div class="description">Methods that are used to create ui elements</div>
             
-                new <span class="type-signature"></span>EventManager<span class="signature">()</span><span class="type-signature"></span>
-                
+
             
-            <div class="container-source members">
-                <code><a href="models_EventManager.js.html">models/EventManager.js</a></code>,
-                <code><a href="models_EventManager.js.html#line6">line 6</a></code>
-            </div>
-            
-        </h4>
-
-        
-    
-</dt>
-<dd>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
 
 <dl class="details">
@@ -135,10 +96,7 @@
 </dl>
 
 
-    
-
-</dd>
-
+            
         
         </div>
     
@@ -165,14 +123,14 @@
 
 <dt>
     
-        <h4 class="name" id="subscribe">
+        <h4 class="name" id=".getDeleteActionBtn">
             
-                <span class="type-signature"></span>subscribe<span class="signature">(subject, cb)</span><span class="type-signature"></span>
+                <span class="type-signature"><span class="icon green">static</span> </span>getDeleteActionBtn<span class="signature">(operation)</span><span class="type-signature"> &rarr; {HTMLElement}</span>
                 
             
             <div class="container-source members">
-                <code><a href="models_EventManager.js.html">models/EventManager.js</a></code>,
-                <code><a href="models_EventManager.js.html#line10">line 10</a></code>
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line256">line 256</a></code>
             </div>
             
         </h4>
@@ -184,7 +142,7 @@
 
     
     <div class="description">
-        Register a listener on a specific event.
+        It builds the delete action button for the operation table row.
     </div>
     
 
@@ -220,7 +178,323 @@
 
         <tr>
             
-                <td class="name"><code>subject</code></td>
+                <td class="name"><code>operation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Operation">Operation</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Operation to add</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">HTMLElement</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id=".getOperationTableRow">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>getOperationTableRow<span class="signature">(operation)</span><span class="type-signature"> &rarr; {HTMLElement}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line221">line 221</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It builds the table row that contains the operation.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>operation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Operation">Operation</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Operation to add</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">HTMLElement</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id=".showMessage">
+            
+                <span class="type-signature"><span class="icon green">static</span> </span>showMessage<span class="signature">(msg, type)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line31">line 31</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Show a message to the user using a bottom snackbar.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>msg</code></td>
             
 
             <td class="type">
@@ -236,20 +510,20 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">A message to show in the snackbar</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>cb</code></td>
+                <td class="name"><code>type</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">function</span>
+<span class="param-type"><a href="global.html#SnackbarType">SnackbarType</a></span>
 
 
             
@@ -259,7 +533,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The type between SUCCESS or ERROR</td>
         </tr>
 
     
@@ -327,14 +601,14 @@
 
 <dt>
     
-        <h4 class="name" id="trigger">
+        <h4 class="name" id=".updateBalance">
             
-                <span class="type-signature"></span>trigger<span class="signature">(subject, payload)</span><span class="type-signature"></span>
+                <span class="type-signature"><span class="icon green">static</span> </span>updateBalance<span class="signature">()</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="models_EventManager.js.html">models/EventManager.js</a></code>,
-                <code><a href="models_EventManager.js.html#line44">line 44</a></code>
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line177">line 177</a></code>
             </div>
             
         </h4>
@@ -346,7 +620,7 @@
 
     
     <div class="description">
-        Call the listeners for a specific event.
+        It updates the total balance shown in the header
     </div>
     
 
@@ -356,79 +630,6 @@
 
     
 
-    
-    <div class="container-params">
-        <h5>Parameters:</h5>
-        
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>subject</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>payload</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    </div>
     
 
     
@@ -489,14 +690,14 @@
 
 <dt>
     
-        <h4 class="name" id="unsubscribe">
+        <h4 class="name" id=".updateOperationsTable">
             
-                <span class="type-signature"></span>unsubscribe<span class="signature">(subject, cb)</span><span class="type-signature"></span>
+                <span class="type-signature"><span class="icon green">static</span> </span>updateOperationsTable<span class="signature">(originalOperations<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
                 
             
             <div class="container-source members">
-                <code><a href="models_EventManager.js.html">models/EventManager.js</a></code>,
-                <code><a href="models_EventManager.js.html#line26">line 26</a></code>
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line191">line 191</a></code>
             </div>
             
         </h4>
@@ -508,7 +709,8 @@
 
     
     <div class="description">
-        Remove a listener for a specific event.
+        It updates the operations shown in the operations table.
+By default it renders the wallet's operations.
     </div>
     
 
@@ -532,6 +734,8 @@
         <th>Type</th>
 
         
+        <th>Attributes</th>
+        
 
         
 
@@ -544,46 +748,33 @@
 
         <tr>
             
-                <td class="name"><code>subject</code></td>
+                <td class="name"><code>originalOperations</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Array.&lt;<a href="global.html#Operation">Operation</a>></span>
 
 
             
             </td>
 
             
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>cb</code></td>
-            
-
-            <td class="type">
-            
+                <td class="attributes">
                 
-<span class="param-type">function</span>
+                    &lt;optional><br>
+                
 
+                
+
+                
+                </td>
+            
 
             
-            </td>
 
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">The list of operations to show in the table.</td>
         </tr>
 
     
@@ -671,7 +862,7 @@
 <script src="scripts/linenumber.js"></script>
 
     <script>
-        var id = 'EventManager_sub'.replace(/"/g, '_');
+        var id = 'UIHelpers_sub'.replace(/"/g, '_');
         var selectedApi = document.getElementById(id); // do not use jquery selector
         var $selectedApi = $(selectedApi);
 

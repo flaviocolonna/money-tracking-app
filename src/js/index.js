@@ -3,12 +3,24 @@ import 'regenerator-runtime/runtime';
 import Wallet from './models/Wallet';
 import { SnackbarTypes, WalletSubjects } from './models/enums';
 
-let snackBarTimeout;
+/**
+ * Methods that are binded to the UI Elements
+ * @name UIMethods
+ * @namespace
+ */
 
+/**
+ * Methods that are used to create ui elements
+ * @name UIHelpers
+ * @namespace
+ */
+
+let snackBarTimeout;
 /**
  * Invoke it to close the snackbar.
  * @name hideSnackbar
  * @function
+ * @memberof UIMethods
  * @void
  */
 const hideSnackbar = function () {
@@ -21,6 +33,7 @@ const hideSnackbar = function () {
  * @name showMessage
  * @function
  * @void
+ * @memberof UIHelpers
  * @param {string} msg - A message to show in the snackbar
  * @param {SnackbarType} type - The type between SUCCESS or ERROR
  */
@@ -44,6 +57,7 @@ const showMessage = function (msg, type) {
  * Invoke it from a submit button in the form
  * @name addOperation
  * @function
+ * @memberof UIMethods
  * @void
  * @param {MouseEvent} ev - Event object received from the function call
  */
@@ -75,6 +89,7 @@ const addOperation = function (ev) {
  * Invoke it to delete a specific operation
  * @name removeOperation
  * @function
+ * @memberof UIMethods
  * @void
  * @param {number} id - Identifier of the operation
  */
@@ -91,6 +106,7 @@ const removeOperation = function (id) {
  * Invoke it to restore the search and the operations table
  * @name resetSearch
  * @function
+ * @memberof UIMethods
  * @void
  * @param {MouseEvent} event - Event passed from the mouse click
  */
@@ -109,6 +125,7 @@ const resetSearch = function (event) {
  * It matches the search term with the description.
  * @name searchOperation
  * @function
+ * @memberof UIMethods
  * @void
  * @param {MouseEvent} event - Event passed from the mouse click
  */
@@ -142,6 +159,7 @@ const getOperations = function () {
  * It toggles the modal view
  * @name toggleModal
  * @function
+ * @memberof UIMethods
  * @void
  */
 const toggleModal = function () {
@@ -159,6 +177,7 @@ const toggleModal = function () {
 /**
  * It updates the total balance shown in the header
  * @name updateBalance
+ * @memberof UIHelpers
  * @function
  * @void
  */
@@ -173,6 +192,7 @@ const updateBalance = function () {
  * It updates the operations shown in the operations table.
  * By default it renders the wallet's operations.
  * @name updateOperationsTable
+ * @memberof UIHelpers
  * @function
  * @param {Array<Operation>} [originalOperations] - The list of operations to show in the table.
  * @void
@@ -202,6 +222,7 @@ const updateOperationsTable = function (originalOperations = getOperations()) {
  * It builds the table row that contains the operation.
  * @name getOperationTableRow
  * @function
+ * @memberof UIHelpers
  * @param {Operation} operation - Operation to add
  * @return {HTMLElement}
  */
@@ -235,6 +256,7 @@ const getOperationTableRow = function (operation) {
 /**
  * It builds the delete action button for the operation table row.
  * @name getDeleteActionBtn
+ * @memberof UIHelpers
  * @function
  * @param {Operation} operation - Operation to add
  * @return {HTMLElement}
@@ -254,6 +276,7 @@ const getDeleteActionBtn = function (operation) {
  * It shows or hides the reset button.
  * @name onSearchInputChange
  * @function
+ * @memberof UIMethods
  * @param {MouseEvent} event - Event received on search input value change
  */
 const onSearchInputChange = function (event) {
