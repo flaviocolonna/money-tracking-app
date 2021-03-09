@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Source: utils.js | Money tracking</title>
+    <title>Source: models/EventManager.js | Money tracking</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -46,38 +46,68 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { OpType } from './models/enums';
-
-/**
- * Check if an operation is valid based on amount, description and type.
- * @name isValidOperation
- * @function
- * @param {Operation} op - Operation to check
- * @return {boolean}
+            <pre class="prettyprint source linenums"><code>/**
+ * Event manager namespace.
+ * @class
+ * @constructor
  */
-const isValidOperation = (op) =>
-    op?.description &amp;&amp;
-    parseFloat(op?.amount) > 0 &amp;&amp;
-    typeof OpType[op?.type] !== 'undefined';
-
-/**
- * Get the saved wallet.
- * @name getWallet
- * @function
- * @return {Wallet}
- */
-function getWallet() {
-    const wallet = localStorage.getItem('wallet');
-    if (!wallet) {
-        return {
-            balance: 0,
-            operations: [],
-        };
+class EventManager {
+    constructor() {
+        this.observers = {};
     }
-    return JSON.parse(wallet);
+    /**
+     * Register a listener on a specific event.
+     * @function
+     * @name subscribe
+     * @void
+     * @instance
+     * @memberof EventManager
+     * @param {string} subject 
+     * @param {Function} cb 
+     */
+    subscribe(subject, cb) {
+        if (!this.observers[subject]) {
+            this.observers[subject] = [];
+        }
+        this.observers[subject].push(cb);
+    }
+    /**
+     * Remove a listener for a specific event.
+     * @function
+     * @name unsubscribe
+     * @void
+     * @instance
+     * @memberof EventManager
+     * @param {string} subject 
+     * @param {Function} cb 
+     */
+    unsubscribe(subject, cb) {
+        if (!this.observers[subject]) {
+            return;
+        }
+        this.observers[subject] = this.observers[subject].filter(
+            (item) => item !== cb
+        );
+    }
+    /**
+     * Call the listeners for a specific event.
+     * @function
+     * @name trigger
+     * @void
+     * @instance
+     * @memberof EventManager
+     * @param {string} subject 
+     * @param {*} payload
+     */
+    trigger(subject, payload) {
+        if (!this.observers[subject]) {
+            return;
+        }
+        this.observers[subject].forEach((cb) => cb(payload));
+    }
 }
 
-export { getWallet, isValidOperation };
+export default EventManager;
 </code></pre>
         </article>
     </section>

@@ -10,9 +10,16 @@ import EventManager from './EventManager';
  * @property {string} type
  */
 /**
- * @typedef {Object} Wallet
+ * @typedef {Object} WalletInterface
  * @property {number} balance
  * @property {Array<Operation>} operations
+ */
+
+/**
+ * Wallet namespace
+ * @constructor
+ * @class
+ * @extends EventManager
  */
 class Wallet extends EventManager {
     #balance = 0;
@@ -23,6 +30,14 @@ class Wallet extends EventManager {
         this.#init();
     }
 
+    /**
+     * Initialize the wallet by getting its saved version.
+     * @name init
+     * @function
+     * @private
+     * @instance
+     * @void
+     */
     #init() {
         const { balance, operations } = getWallet();
         // eslint-disable-next-line no-invalid-this
@@ -34,6 +49,8 @@ class Wallet extends EventManager {
     /**
      * Save the wallet in the local storage
      * @name saveWallet
+     * @memberof Wallet
+     * @instance
      * @function
      * @void
      */
@@ -51,8 +68,10 @@ class Wallet extends EventManager {
     /**
      * Add the operation to the wallet and save it
      * @name addOperation
+     * @memberof Wallet
      * @void
      * @function
+     * @instance
      * @param {Operation} op - Operation to add
      */
     addOperation(op) {
@@ -79,8 +98,10 @@ class Wallet extends EventManager {
     /**
      * Remove the operation found with the id passed from the wallet and save it
      * @name removeOperation
+     * @memberof Wallet
      * @void
      * @function
+     * @instance
      * @param {number} opId - Operation's id to remove
      */
     removeOperation(opId) {
@@ -102,7 +123,9 @@ class Wallet extends EventManager {
     /**
      * Find the list of the operations that match partial description with the search value.
      * @name findOperation
+     * @memberof Wallet
      * @function
+     * @instance
      * @param {string} searchValue - Term to search
      * @return {Array<Operation>}
      */
@@ -118,7 +141,9 @@ class Wallet extends EventManager {
     /**
      * It returns the balance of the wallet.
      * @name getBalance
+     * @memberof Wallet
      * @function
+     * @instance
      * @return {boolean}
      */
     getBalance() {
@@ -127,7 +152,9 @@ class Wallet extends EventManager {
     /**
      * It returns the list of the operations.
      * @name getOperations
+     * @memberof Wallet
      * @function
+     * @instance
      * @return {Array<Operation>}
      */
     getOperations() {

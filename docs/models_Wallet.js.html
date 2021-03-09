@@ -34,7 +34,7 @@
         <ul></ul>
     </div>
     
-    <div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#addOperation">addOperation</a></li><li><a href="global.html#findOperation">findOperation</a></li><li><a href="global.html#getBalance">getBalance</a></li><li><a href="global.html#getDeleteActionBtn">getDeleteActionBtn</a></li><li><a href="global.html#getOperations">getOperations</a></li><li><a href="global.html#getOperationTableRow">getOperationTableRow</a></li><li><a href="global.html#getWallet">getWallet</a></li><li><a href="global.html#hideSnackbar">hideSnackbar</a></li><li><a href="global.html#isValidOperation">isValidOperation</a></li><li><a href="global.html#onSearchInputChange">onSearchInputChange</a></li><li class="hidden"><a href="global.html#Operation">Operation</a></li><li><a href="global.html#removeOperation">removeOperation</a></li><li><a href="global.html#resetSearch">resetSearch</a></li><li><a href="global.html#saveWallet">saveWallet</a></li><li><a href="global.html#searchOperation">searchOperation</a></li><li><a href="global.html#showMessage">showMessage</a></li><li class="hidden"><a href="global.html#SnackbarType">SnackbarType</a></li><li><a href="global.html#SnackbarTypes">SnackbarTypes</a></li><li><a href="global.html#toggleModal">toggleModal</a></li><li><a href="global.html#updateBalance">updateBalance</a></li><li><a href="global.html#updateOperationsTable">updateOperationsTable</a></li><li class="hidden"><a href="global.html#Wallet">Wallet</a></li></ul></div>
+    <div class="lnb-api hidden"><h3>Classes</h3><ul><li><a href="EventManager.html">EventManager</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="EventManager_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="EventManager.html#subscribe">subscribe</a></li><li><a href="EventManager.html#trigger">trigger</a></li><li><a href="EventManager.html#unsubscribe">unsubscribe</a></li></ul></div></li><li><a href="Wallet.html">Wallet</a><button type="button" class="hidden toggle-subnav btn btn-link">  <span class="glyphicon glyphicon-plus"></span></button><div class="hidden" id="Wallet_sub"><div class="member-type">Methods</div><ul class="inner"><li><a href="Wallet.html#addOperation">addOperation</a></li><li><a href="Wallet.html#findOperation">findOperation</a></li><li><a href="Wallet.html#getBalance">getBalance</a></li><li><a href="Wallet.html#getOperations">getOperations</a></li><li><a href="Wallet.html#removeOperation">removeOperation</a></li><li><a href="Wallet.html#saveWallet">saveWallet</a></li><li><a href="Wallet.html#subscribe">subscribe</a></li><li><a href="Wallet.html#trigger">trigger</a></li><li><a href="Wallet.html#unsubscribe">unsubscribe</a></li></ul></div></li></ul></div><div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#addOperation">addOperation</a></li><li><a href="global.html#getBalance">getBalance</a></li><li><a href="global.html#getDeleteActionBtn">getDeleteActionBtn</a></li><li><a href="global.html#getOperations">getOperations</a></li><li><a href="global.html#getOperationTableRow">getOperationTableRow</a></li><li><a href="global.html#getWallet">getWallet</a></li><li><a href="global.html#hideSnackbar">hideSnackbar</a></li><li><a href="global.html#isValidOperation">isValidOperation</a></li><li><a href="global.html#onSearchInputChange">onSearchInputChange</a></li><li class="hidden"><a href="global.html#Operation">Operation</a></li><li><a href="global.html#removeOperation">removeOperation</a></li><li><a href="global.html#resetSearch">resetSearch</a></li><li><a href="global.html#searchOperation">searchOperation</a></li><li><a href="global.html#showMessage">showMessage</a></li><li class="hidden"><a href="global.html#SnackbarType">SnackbarType</a></li><li><a href="global.html#SnackbarTypes">SnackbarTypes</a></li><li><a href="global.html#toggleModal">toggleModal</a></li><li><a href="global.html#updateBalance">updateBalance</a></li><li><a href="global.html#updateOperationsTable">updateOperationsTable</a></li><li class="hidden"><a href="global.html#WalletInterface">WalletInterface</a></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -58,9 +58,16 @@ import EventManager from './EventManager';
  * @property {string} type
  */
 /**
- * @typedef {Object} Wallet
+ * @typedef {Object} WalletInterface
  * @property {number} balance
  * @property {Array&lt;Operation>} operations
+ */
+
+/**
+ * Wallet namespace
+ * @constructor
+ * @class
+ * @extends EventManager
  */
 class Wallet extends EventManager {
     #balance = 0;
@@ -71,6 +78,14 @@ class Wallet extends EventManager {
         this.#init();
     }
 
+    /**
+     * Initialize the wallet by getting its saved version.
+     * @name init
+     * @function
+     * @private
+     * @instance
+     * @void
+     */
     #init() {
         const { balance, operations } = getWallet();
         // eslint-disable-next-line no-invalid-this
@@ -82,6 +97,8 @@ class Wallet extends EventManager {
     /**
      * Save the wallet in the local storage
      * @name saveWallet
+     * @memberof Wallet
+     * @instance
      * @function
      * @void
      */
@@ -99,8 +116,10 @@ class Wallet extends EventManager {
     /**
      * Add the operation to the wallet and save it
      * @name addOperation
+     * @memberof Wallet
      * @void
      * @function
+     * @instance
      * @param {Operation} op - Operation to add
      */
     addOperation(op) {
@@ -127,8 +146,10 @@ class Wallet extends EventManager {
     /**
      * Remove the operation found with the id passed from the wallet and save it
      * @name removeOperation
+     * @memberof Wallet
      * @void
      * @function
+     * @instance
      * @param {number} opId - Operation's id to remove
      */
     removeOperation(opId) {
@@ -150,7 +171,9 @@ class Wallet extends EventManager {
     /**
      * Find the list of the operations that match partial description with the search value.
      * @name findOperation
+     * @memberof Wallet
      * @function
+     * @instance
      * @param {string} searchValue - Term to search
      * @return {Array&lt;Operation>}
      */
@@ -166,7 +189,9 @@ class Wallet extends EventManager {
     /**
      * It returns the balance of the wallet.
      * @name getBalance
+     * @memberof Wallet
      * @function
+     * @instance
      * @return {boolean}
      */
     getBalance() {
@@ -175,7 +200,9 @@ class Wallet extends EventManager {
     /**
      * It returns the list of the operations.
      * @name getOperations
+     * @memberof Wallet
      * @function
+     * @instance
      * @return {Array&lt;Operation>}
      */
     getOperations() {
