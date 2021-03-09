@@ -32,7 +32,7 @@
         <ul></ul>
     </div>
     
-    <div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#showMessage">showMessage</a></li><li class="hidden"><a href="global.html#SnackbarType">SnackbarType</a></li><li><a href="global.html#SnackbarTypes">SnackbarTypes</a></li></ul></div>
+    <div class="lnb-api hidden"><h3>Global</h3><ul><li><a href="global.html#addOperation">addOperation</a></li><li><a href="global.html#getBalance">getBalance</a></li><li><a href="global.html#getDeleteActionBtn">getDeleteActionBtn</a></li><li><a href="global.html#getOperations">getOperations</a></li><li><a href="global.html#getOperationTableRow">getOperationTableRow</a></li><li><a href="global.html#hideSnackbar">hideSnackbar</a></li><li><a href="global.html#onSearchInputChange">onSearchInputChange</a></li><li class="hidden"><a href="global.html#Operation">Operation</a></li><li><a href="global.html#removeOperation">removeOperation</a></li><li><a href="global.html#resetSearch">resetSearch</a></li><li><a href="global.html#searchOperation">searchOperation</a></li><li><a href="global.html#showMessage">showMessage</a></li><li class="hidden"><a href="global.html#SnackbarType">SnackbarType</a></li><li><a href="global.html#SnackbarTypes">SnackbarTypes</a></li><li><a href="global.html#toggleModal">toggleModal</a></li><li><a href="global.html#updateBalance">updateBalance</a></li><li><a href="global.html#updateOperationsTable">updateOperationsTable</a></li></ul></div>
 </nav>
 <div id="resizer"></div>
 
@@ -154,6 +154,1323 @@
 
 <dt>
     
+        <h4 class="name" id="addOperation">
+            
+                <span class="type-signature"></span>addOperation<span class="signature">(ev)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line51">line 51</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Invoke it from a submit button in the form
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ev</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">MouseEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Event object received from the function call</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="getBalance">
+            
+                <span class="type-signature"></span>getBalance<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line131">line 131</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It returns the balance from the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">number</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="getDeleteActionBtn">
+            
+                <span class="type-signature"></span>getDeleteActionBtn<span class="signature">(operation)</span><span class="type-signature"> &rarr; {HTMLElement}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line243">line 243</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It builds the delete action button for the operation table row.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>operation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Operation">Operation</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Operation to add</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">HTMLElement</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="getOperations">
+            
+                <span class="type-signature"></span>getOperations<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="global.html#Operation">Operation</a>>}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line140">line 140</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It returns the operations list from the wallet
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">Array.&lt;<a href="global.html#Operation">Operation</a>></span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="getOperationTableRow">
+            
+                <span class="type-signature"></span>getOperationTableRow<span class="signature">(operation)</span><span class="type-signature"> &rarr; {HTMLElement}</span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line209">line 209</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It builds the table row that contains the operation.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>operation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Operation">Operation</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Operation to add</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-returns">
+        <h5>Returns:</h5>
+        
+                
+
+
+
+<span class="param-type">HTMLElement</span>
+
+
+
+
+
+
+
+
+            
+    </div>
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="hideSnackbar">
+            
+                <span class="type-signature"></span>hideSnackbar<span class="signature">()</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line16">line 16</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Invoke it to close the snackbar.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="onSearchInputChange">
+            
+                <span class="type-signature"></span>onSearchInputChange<span class="signature">(event)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line261">line 261</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It shows or hides the reset button.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">MouseEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Event received on search input value change</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="removeOperation">
+            
+                <span class="type-signature"></span>removeOperation<span class="signature">(id)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line82">line 82</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Invoke it to delete a specific operation
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Identifier of the operation</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="resetSearch">
+            
+                <span class="type-signature"></span>resetSearch<span class="signature">(event)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line98">line 98</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Invoke it to restore the search and the operations table
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">MouseEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Event passed from the mouse click</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="searchOperation">
+            
+                <span class="type-signature"></span>searchOperation<span class="signature">(event)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line115">line 115</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Invoke it to perform a search in the wallet.
+It matches the search term with the description.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">MouseEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Event passed from the mouse click</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
         <h4 class="name" id="showMessage">
             
                 <span class="type-signature"></span>showMessage<span class="signature">(msg, type)</span><span class="type-signature"></span>
@@ -161,7 +1478,7 @@
             
             <div class="container-source members">
                 <code><a href="index.js.html">index.js</a></code>,
-                <code><a href="index.js.html#line11">line 11</a></code>
+                <code><a href="index.js.html#line27">line 27</a></code>
             </div>
             
         </h4>
@@ -311,6 +1628,336 @@
 
 </dd>
 
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="toggleModal">
+            
+                <span class="type-signature"></span>toggleModal<span class="signature">()</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line149">line 149</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It toggles the modal view
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="updateBalance">
+            
+                <span class="type-signature"></span>updateBalance<span class="signature">()</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line167">line 167</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It updates the total balance shown in the header
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
+            
+                
+
+<dt>
+    
+        <h4 class="name" id="updateOperationsTable">
+            
+                <span class="type-signature"></span>updateOperationsTable<span class="signature">(originalOperations<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span>
+                
+            
+            <div class="container-source members">
+                <code><a href="index.js.html">index.js</a></code>,
+                <code><a href="index.js.html#line180">line 180</a></code>
+            </div>
+            
+        </h4>
+
+        
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        It updates the operations shown in the operations table.
+By default it renders the wallet's operations.
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+    <div class="container-params">
+        <h5>Parameters:</h5>
+        
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>originalOperations</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#Operation">Operation</a>></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The list of operations to show in the table.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+</dd>
+
             </dl>
     
 
@@ -318,6 +1965,225 @@
         <h3 class="subsection-title">Type Definitions</h3>
 
         <dl>
+                
+
+<dt>
+<h4 class="name" id="Operation">
+    Operation
+    
+    <div class="container-source members">
+        <code><a href="index.js.html">index.js</a></code>,
+        <code><a href="index.js.html#line7">line 7</a></code>
+    </div>
+    
+</h4>
+
+
+</dt>
+<dd>
+    
+
+    <!--
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">object</span>
+
+
+            </li>
+        </ul>
+    
+    -->
+
+    
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>amount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+            
                 
 
 <dt>

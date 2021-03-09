@@ -4,7 +4,21 @@ import Wallet from './models/Wallet';
 import { SnackbarTypes, WalletSubjects } from './models/enums';
 
 let snackBarTimeout;
+/**
+ * @typedef {object} Operation
+ * @property {number} id
+ * @property {number} date
+ * @property {number} amount
+ * @property {string} description
+ * @property {string} type
+ */
 
+/**
+ * Invoke it to close the snackbar.
+ * @name hideSnackbar
+ * @function
+ * @void
+ */
 const hideSnackbar = function () {
     const toastElement = document.getElementById('toast');
     toastElement?.classList.remove('show');
@@ -34,6 +48,13 @@ const showMessage = function (msg, type) {
         hideSnackbar();
     }, 5000);
 };
+/**
+ * Invoke it from a submit button in the form
+ * @name addOperation
+ * @function
+ * @void
+ * @param {MouseEvent} ev - Event object received from the function call
+ */
 const addOperation = function (ev) {
     ev.preventDefault();
     const { target } = ev;
@@ -58,6 +79,13 @@ const addOperation = function (ev) {
         showMessage('Operation not added!', SnackbarTypes.ERROR);
     }
 };
+/**
+ * Invoke it to delete a specific operation
+ * @name removeOperation
+ * @function
+ * @void
+ * @param {number} id - Identifier of the operation
+ */
 const removeOperation = function (id) {
     try {
         Wallet.removeOperation(id);
@@ -67,6 +95,13 @@ const removeOperation = function (id) {
         showMessage('Operation not removed!', SnackbarTypes.ERROR);
     }
 };
+/**
+ * Invoke it to restore the search and the operations table
+ * @name resetSearch
+ * @function
+ * @void
+ * @param {MouseEvent} event - Event passed from the mouse click
+ */
 const resetSearch = function (event) {
     event.preventDefault();
     const { target } = event;
@@ -77,6 +112,14 @@ const resetSearch = function (event) {
     formElement.reset();
     updateOperationsTable();
 };
+/**
+ * Invoke it to perform a search in the wallet.
+ * It matches the search term with the description.
+ * @name searchOperation
+ * @function
+ * @void
+ * @param {MouseEvent} event - Event passed from the mouse click
+ */
 const searchOperation = function (event) {
     event.preventDefault();
     const {
@@ -85,12 +128,30 @@ const searchOperation = function (event) {
     const operationsToAdd = Wallet.findOperation(value);
     updateOperationsTable(operationsToAdd);
 };
+/**
+ * It returns the balance from the wallet
+ * @name getBalance
+ * @function
+ * @return {number}
+ */
 const getBalance = function () {
     return Wallet.getBalance();
 };
+/**
+ * It returns the operations list from the wallet
+ * @name getOperations
+ * @function
+ * @return {Array<Operation>}
+ */
 const getOperations = function () {
     return Wallet.getOperations();
 };
+/**
+ * It toggles the modal view
+ * @name toggleModal
+ * @function
+ * @void
+ */
 const toggleModal = function () {
     const modalComponent = document.getElementById('modal');
     if (!modalComponent) {
@@ -103,6 +164,12 @@ const toggleModal = function () {
     }
     modalComponent.classList.add('hide');
 };
+/**
+ * It updates the total balance shown in the header
+ * @name updateBalance
+ * @function
+ * @void
+ */
 const updateBalance = function () {
     const balanceElement = document.getElementById('balance-box');
     if (!balanceElement) {
@@ -110,6 +177,14 @@ const updateBalance = function () {
     }
     balanceElement.textContent = parseFloat(getBalance()).toLocaleString();
 };
+/**
+ * It updates the operations shown in the operations table.
+ * By default it renders the wallet's operations.
+ * @name updateOperationsTable
+ * @function
+ * @param {Array<Operation>} [originalOperations] - The list of operations to show in the table.
+ * @void
+ */
 const updateOperationsTable = function (originalOperations = getOperations()) {
     const tableContainerElement = document.getElementById('table-container');
     const tableElement = document.getElementById('table-body');
@@ -131,6 +206,13 @@ const updateOperationsTable = function (originalOperations = getOperations()) {
         tableElement.appendChild(getOperationTableRow(operation));
     });
 };
+/**
+ * It builds the table row that contains the operation.
+ * @name getOperationTableRow
+ * @function
+ * @param {Operation} operation - Operation to add
+ * @return {HTMLElement}
+ */
 const getOperationTableRow = function (operation) {
     // Add operation to table
     const trRow = document.createElement('tr');
@@ -158,6 +240,13 @@ const getOperationTableRow = function (operation) {
     trRow.appendChild(getDeleteActionBtn(operation));
     return trRow;
 };
+/**
+ * It builds the delete action button for the operation table row.
+ * @name getDeleteActionBtn
+ * @function
+ * @param {Operation} operation - Operation to add
+ * @return {HTMLElement}
+ */
 const getDeleteActionBtn = function (operation) {
     const tdAction = document.createElement('td');
     tdAction.className = 'align-text-center';
@@ -169,6 +258,12 @@ const getDeleteActionBtn = function (operation) {
     tdAction.appendChild(actionButton);
     return tdAction;
 };
+/**
+ * It shows or hides the reset button.
+ * @name onSearchInputChange
+ * @function
+ * @param {MouseEvent} event - Event received on search input value change
+ */
 const onSearchInputChange = function (event) {
     const { value: searchValue } = event.target;
     const resetSearchElmnt = document.getElementById('reset-search-btn');
