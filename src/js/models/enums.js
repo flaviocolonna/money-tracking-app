@@ -1,22 +1,22 @@
 /**
- * @typedef {string} SnackbarType
+ * @typedef {string} SnackbarTypeInterface
  * @property {string} SUCCESS - Show green snackbar
  * @property {string} ERROR - Show red snackbar
  */
 /**
- * @typedef {string} OperationType
+ * @typedef {string} OperationTypeInterface
  * @property {string} OUT - Expense identifier
  * @property {string} IN - Income identifier
  */
 /**
- * @typedef {string} WalletErrors
+ * @typedef {string} WalletErrorsInterface
  * @property {string} INVALID_OPERATION - Operation description, amount or type is invalid
  * @property {string} OPERATION_NOT_FOUND - Operation not found in the wallet
  */
 
 /**
  * @readonly
- * @enum {OperationType}
+ * @enum {OperationTypeInterface}
  */
 const OpType = Object.freeze({
     OUT: 'OUT',
@@ -24,7 +24,7 @@ const OpType = Object.freeze({
 });
 /**
  * @readonly
- * @enum {WalletErrors}
+ * @enum {WalletErrorsInterface}
  */
 const WalletErrors = Object.freeze({
     INVALID_OPERATION: 'INVALID_OPERATION',
@@ -32,7 +32,7 @@ const WalletErrors = Object.freeze({
 });
 /**
  * @readonly
- * @enum {SnackbarType}
+ * @enum {SnackbarTypeInterface}
  */
 const SnackbarTypes = Object.freeze({
     SUCCESS: 'SUCCESS',

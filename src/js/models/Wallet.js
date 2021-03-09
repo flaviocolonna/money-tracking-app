@@ -7,7 +7,7 @@ import EventManager from './EventManager';
  * @property {number} date
  * @property {number} amount
  * @property {string} description
- * @property {string} type
+ * @property {OperationTypeInterface} type
  */
 /**
  * @typedef {Object} WalletInterface

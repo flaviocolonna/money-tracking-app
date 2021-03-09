@@ -35,7 +35,7 @@ const hideSnackbar = function () {
  * @void
  * @memberof UIHelpers
  * @param {string} msg - A message to show in the snackbar
- * @param {SnackbarType} type - The type between SUCCESS or ERROR
+ * @param {SnackbarTypeInterface} type - The type between SUCCESS or ERROR
  */
 const showMessage = function (msg, type) {
     const toastElement = document.getElementById('toast');
