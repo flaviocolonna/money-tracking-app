@@ -94,9 +94,9 @@ const addOperation = async function (ev) {
  * @void
  * @param {number} id - Identifier of the operation
  */
-const removeOperation = function (id) {
+const removeOperation = async function (id) {
     try {
-        Wallet.removeOperation(id);
+        await Wallet.removeOperation(id);
         showMessage('Operation removed successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
         console.error(e);
@@ -310,7 +310,7 @@ window.addEventListener('DOMContentLoaded', function initApp() {
             document
                 .getElementById('modal-general-error')
                 ?.classList.remove('hide');
-            console.error('Error configs', e);
+            console.error(e);
         })
         .finally(() => {
             updateBalance();

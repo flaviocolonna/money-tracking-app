@@ -60,7 +60,7 @@ class Wallet extends EventManager {
      * @return {Promise} Promise network call
      * @throws {Error} INVALID_OPERATION
      */
-    addOperation(op) {
+    async addOperation(op) {
         if (!isValidOperation(op)) {
             throw new Error(WalletErrors.INVALID_OPERATION);
         }
@@ -70,9 +70,8 @@ class Wallet extends EventManager {
             description: description.trim(),
             type,
         };
-        return doCreateOperation(operationToAdd).then(() =>
-            this.updateWallet()
-        );
+        await doCreateOperation(operationToAdd);
+        this.updateWallet();
     }
     /**
      * Remove the operation found with the id passed from the wallet and save it
@@ -85,14 +84,15 @@ class Wallet extends EventManager {
      * @param {number} opId - Operation's id to remove
      * @return {Promise}
      */
-    removeOperation(opId) {
+    async removeOperation(opId) {
         const operationIndex = this.#operations.findIndex(
             ({ id }) => id === opId
         );
         if (operationIndex === -1) {
             throw new Error(WalletErrors.OPERATION_NOT_FOUND);
         }
-        return doRemoveOperation(opId).then(() => this.updateWallet());
+        await doRemoveOperation(opId);
+        this.updateWallet();
     }
     /**
      * Find the list of the operations that match partial description with the search value.
