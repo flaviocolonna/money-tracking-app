@@ -1,4 +1,6 @@
-import { OpType } from './models/enums';
+import { OpType, Endpoints } from './models/enums';
+import ConfigService from './services/ConfigService';
+import axios from 'axios';
 
 /**
  * Check if an operation is valid based on amount, description and type.
@@ -11,22 +13,34 @@ const isValidOperation = (op) =>
     op?.description &&
     parseFloat(op?.amount) > 0 &&
     typeof OpType[op?.type] !== 'undefined';
-
 /**
  * Get the saved wallet.
  * @name getWallet
  * @function
  * @return {WalletInterface}
  */
-function getWallet() {
-    const wallet = localStorage.getItem('wallet');
+async function getWallet() {
+    const { data: wallet } = await axios.get(
+        `${ConfigService.getApiBaseEndpoint()}/${Endpoints.GET_WALLET}`
+    );
     if (!wallet) {
         return {
             balance: 0,
             operations: [],
         };
     }
-    return JSON.parse(wallet);
+    return wallet;
 }
+const doCreateOperation = (operation) =>
+    axios.post(
+        `${ConfigService.getApiBaseEndpoint()}/${Endpoints.POST_OPERATION}`,
+        operation
+    );
+const doRemoveOperation = (operationID) =>
+    axios.delete(
+        `${ConfigService.getApiBaseEndpoint()}/${
+            Endpoints.POST_OPERATION
+        }/${operationID}`
+    );
 
-export { getWallet, isValidOperation };
+export { getWallet, isValidOperation, doCreateOperation, doRemoveOperation };

@@ -1,5 +1,10 @@
-import { getWallet, isValidOperation } from '../utils';
-import { WalletErrors, OpType, WalletSubjects } from './enums';
+import {
+    getWallet,
+    isValidOperation,
+    doCreateOperation,
+    doRemoveOperation,
+} from '../utils';
+import { WalletErrors, WalletSubjects } from './enums';
 import EventManager from './EventManager';
 /**
  * @typedef {object} Operation
@@ -27,41 +32,21 @@ class Wallet extends EventManager {
 
     constructor() {
         super();
-        this.#init();
     }
-
     /**
-     * Initialize the wallet by getting its saved version.
-     * @name init
+     * Update the wallet by getting its saved version.
+     * @name updateWallet
      * @function
      * @private
      * @instance
      * @void
      */
-    #init() {
-        const { balance, operations } = getWallet();
+    async updateWallet() {
+        const { balance, operations } = await getWallet();
         // eslint-disable-next-line no-invalid-this
         this.#balance = balance;
         // eslint-disable-next-line no-invalid-this
         this.#operations = operations;
-    }
-
-    /**
-     * Save the wallet in the local storage
-     * @name saveWallet
-     * @memberof Wallet
-     * @instance
-     * @function
-     * @void
-     */
-    saveWallet() {
-        localStorage.setItem(
-            'wallet',
-            JSON.stringify({
-                balance: this.#balance,
-                operations: this.#operations,
-            })
-        );
         this.trigger(WalletSubjects.WALLET_SAVED);
     }
 
@@ -69,32 +54,24 @@ class Wallet extends EventManager {
      * Add the operation to the wallet and save it
      * @name addOperation
      * @memberof Wallet
-     * @void
      * @function
      * @instance
      * @param {Operation} op - Operation to add
+     * @return {Promise} Promise network call
      * @throws {Error} INVALID_OPERATION
      */
-    addOperation(op) {
+    async addOperation(op) {
         if (!isValidOperation(op)) {
             throw new Error(WalletErrors.INVALID_OPERATION);
         }
         const { description, type, amount } = op;
-        const currentMS = new Date().getTime();
-        const operation = {
-            id: currentMS,
+        const operationToAdd = {
             amount: parseFloat(amount),
             description: description.trim(),
             type,
-            date: currentMS,
         };
-        if (type === OpType.IN) {
-            this.#balance += operation.amount;
-        } else if (type === OpType.OUT) {
-            this.#balance -= operation.amount;
-        }
-        this.#operations.push(operation);
-        this.saveWallet();
+        await doCreateOperation(operationToAdd);
+        this.updateWallet();
     }
     /**
      * Remove the operation found with the id passed from the wallet and save it
@@ -105,22 +82,17 @@ class Wallet extends EventManager {
      * @instance
      * @throws {Error} OPERATION_NOT_FOUND
      * @param {number} opId - Operation's id to remove
+     * @return {Promise}
      */
-    removeOperation(opId) {
+    async removeOperation(opId) {
         const operationIndex = this.#operations.findIndex(
             ({ id }) => id === opId
         );
         if (operationIndex === -1) {
             throw new Error(WalletErrors.OPERATION_NOT_FOUND);
         }
-        const { type, amount } = this.#operations[operationIndex];
-        if (type === OpType.IN) {
-            this.#balance -= amount;
-        } else if (type === OpType.OUT) {
-            this.#balance += amount;
-        }
-        this.#operations.splice(operationIndex, 1);
-        this.saveWallet();
+        await doRemoveOperation(opId);
+        this.updateWallet();
     }
     /**
      * Find the list of the operations that match partial description with the search value.
