@@ -306,7 +306,13 @@ Wallet.subscribe(WalletSubjects.WALLET_SAVED, () => {
 window.addEventListener('DOMContentLoaded', function initApp() {
     ConfigService.init()
         .then(() => Wallet.updateWallet())
-        .then(() => {
+        .catch((e) => {
+            document
+                .getElementById('modal-general-error')
+                ?.classList.remove('hide');
+            console.error('Error configs', e);
+        })
+        .finally(() => {
             updateBalance();
             updateOperationsTable();
         });

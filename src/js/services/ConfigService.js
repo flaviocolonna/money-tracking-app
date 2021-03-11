@@ -5,10 +5,9 @@ class ConfigService {
     constructor() {
         this.configs = {};
     }
-    init() {
-        return axios.get(`/${Endpoints.CONFIG}`).then(({ data }) => {
-            this.configs = data;
-        });
+    async init() {
+        const { data } = await axios.get(`/${Endpoints.CONFIG}`);
+        this.configs = data;
     }
     getApiBaseEndpoint() {
         return this.configs.API_BASE_ENDPOINT;
