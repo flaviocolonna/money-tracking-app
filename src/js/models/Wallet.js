@@ -1,5 +1,10 @@
-import { getWallet, isValidOperation, doCreateOperation } from '../utils';
-import { WalletErrors, OpType, WalletSubjects } from './enums';
+import {
+    getWallet,
+    isValidOperation,
+    doCreateOperation,
+    doRemoveOperation,
+} from '../utils';
+import { WalletErrors, WalletSubjects } from './enums';
 import EventManager from './EventManager';
 /**
  * @typedef {object} Operation
@@ -78,6 +83,7 @@ class Wallet extends EventManager {
      * @instance
      * @throws {Error} OPERATION_NOT_FOUND
      * @param {number} opId - Operation's id to remove
+     * @return {Promise}
      */
     removeOperation(opId) {
         const operationIndex = this.#operations.findIndex(
@@ -86,13 +92,7 @@ class Wallet extends EventManager {
         if (operationIndex === -1) {
             throw new Error(WalletErrors.OPERATION_NOT_FOUND);
         }
-        const { type, amount } = this.#operations[operationIndex];
-        if (type === OpType.IN) {
-            this.#balance -= amount;
-        } else if (type === OpType.OUT) {
-            this.#balance += amount;
-        }
-        this.#operations.splice(operationIndex, 1);
+        return doRemoveOperation(opId).then(() => this.updateWallet());
     }
     /**
      * Find the list of the operations that match partial description with the search value.

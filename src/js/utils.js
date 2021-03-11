@@ -36,5 +36,11 @@ const doCreateOperation = (operation) =>
         `${ConfigService.getApiBaseEndpoint()}/${Endpoints.POST_OPERATION}`,
         operation
     );
+const doRemoveOperation = (operationID) =>
+    axios.delete(
+        `${ConfigService.getApiBaseEndpoint()}/${
+            Endpoints.POST_OPERATION
+        }/${operationID}`
+    );
 
-export { getWallet, isValidOperation, doCreateOperation };
+export { getWallet, isValidOperation, doCreateOperation, doRemoveOperation };
