@@ -2,7 +2,7 @@ import 'expect-puppeteer';
 
 describe('E2E: testing suite', function () {
     beforeAll(async function () {
-        await page.goto('http://localhost:3000');
+        await page.goto('http://localhost:3001');
     });
     beforeEach(async function () {
         await page.evaluate(() => localStorage.clear());

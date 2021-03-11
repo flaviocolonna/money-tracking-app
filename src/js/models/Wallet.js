@@ -71,7 +71,7 @@ class Wallet extends EventManager {
             type,
         };
         await doCreateOperation(operationToAdd);
-        this.updateWallet();
+        await this.updateWallet();
     }
     /**
      * Remove the operation found with the id passed from the wallet and save it
@@ -92,7 +92,7 @@ class Wallet extends EventManager {
             throw new Error(WalletErrors.OPERATION_NOT_FOUND);
         }
         await doRemoveOperation(opId);
-        this.updateWallet();
+        await this.updateWallet();
     }
     /**
      * Find the list of the operations that match partial description with the search value.
