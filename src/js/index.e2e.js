@@ -1,5 +1,5 @@
 import 'expect-puppeteer';
-import { OpType } from './models/enums';
+import { OpType, Endpoints } from './models/enums';
 const mockedStructures = require('../../jest/mockedStructures');
 const initialGetWalletResponse = {
     status: 200,
@@ -34,7 +34,7 @@ describe('E2E: testing suite', function () {
             const reqURL = req.url();
             const reqMethod = req.method();
             if (
-                reqURL === 'http://localhost:9000/api/wallet/operation' &&
+                reqURL.endsWith(Endpoints.POST_OPERATION) &&
                 reqMethod === 'OPTIONS'
             ) {
                 return req.respond({
@@ -47,7 +47,7 @@ describe('E2E: testing suite', function () {
                 });
             }
             if (
-                reqURL === 'http://localhost:9000/api/wallet/operation' &&
+                reqURL.endsWith(Endpoints.POST_OPERATION) &&
                 reqMethod === 'POST'
             ) {
                 return req.respond({
@@ -57,10 +57,7 @@ describe('E2E: testing suite', function () {
                     },
                 });
             }
-            if (
-                reqURL === 'http://localhost:9000/api/wallet' &&
-                reqMethod === 'GET'
-            ) {
+            if (reqURL.endsWith(Endpoints.GET_WALLET) && reqMethod === 'GET') {
                 return req.respond({
                     headers: {
                         'access-control-allow-origin': '*',
