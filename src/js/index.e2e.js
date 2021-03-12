@@ -73,8 +73,7 @@ describe('E2E: testing suite', function () {
     it('No operations found is visible', async function () {
         await page.waitForResponse(
             (res) =>
-                res.url() === 'http://localhost:9000/api/wallet' &&
-                res.status() === 200
+                res.url().endsWith(Endpoints.GET_WALLET) && res.status() === 200
         );
         const tableContainerElmnt = await page.$('#table-container.no-data');
         expect(tableContainerElmnt).not.toBeNull();
@@ -99,8 +98,7 @@ describe('E2E: testing suite', function () {
         await expect(page).toClick("button[data-test-id='add-expense-op-btn']");
         await page.waitForResponse(
             (res) =>
-                res.url() === 'http://localhost:9000/api/wallet' &&
-                res.status() === 200
+                res.url().endsWith(Endpoints.GET_WALLET) && res.status() === 200
         );
         const balanceElmnt = await page.$("[data-test-id='balance-box']");
         const balanceElmntText = await page.evaluate(
@@ -165,8 +163,7 @@ describe('E2E: testing suite', function () {
         await expect(page).toClick("button[data-test-id='add-income-op-btn']");
         await page.waitForResponse(
             (res) =>
-                res.url() === 'http://localhost:9000/api/wallet' &&
-                res.status() === 200
+                res.url().endsWith(Endpoints.GET_WALLET) && res.status() === 200
         );
         const balanceElmnt = await page.$("[data-test-id='balance-box']");
         const balanceElmntText = await page.evaluate(
