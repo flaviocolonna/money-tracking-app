@@ -165,15 +165,12 @@ const getOperations = function () {
  */
 const toggleModal = function () {
     const modalComponent = document.getElementById('modal');
-    if (!modalComponent) {
-        return;
-    }
-    const isHidden = modalComponent.classList.contains('hide');
+    const isHidden = modalComponent?.classList.contains('hide');
     if (isHidden) {
-        modalComponent.classList.remove('hide');
+        modalComponent?.classList.remove('hide');
         return;
     }
-    modalComponent.classList.add('hide');
+    modalComponent?.classList.add('hide');
 };
 /**
  * It updates the total balance shown in the header
@@ -283,14 +280,18 @@ const getDeleteActionBtn = function (operation) {
 const onSearchInputChange = function (event) {
     const { value: searchValue } = event.target;
     const resetSearchElmnt = document.getElementById('reset-search-btn');
-    if (!resetSearchElmnt) {
-        return;
-    }
     if (!searchValue) {
-        resetSearchElmnt.classList.add('hide');
+        resetSearchElmnt?.classList.add('hide');
         return;
     }
-    resetSearchElmnt.classList.remove('hide');
+    resetSearchElmnt?.classList.remove('hide');
+};
+const setIsLoading = function (isLoading) {
+    if (isLoading) {
+        document.querySelector('body').classList.add('loading');
+        return;
+    }
+    document.querySelector('body').classList.remove('loading');
 };
 window.hideSnackbar = hideSnackbar;
 window.addOperation = addOperation;
@@ -304,6 +305,7 @@ Wallet.subscribe(WalletSubjects.WALLET_SAVED, () => {
     updateOperationsTable();
 });
 window.addEventListener('DOMContentLoaded', function initApp() {
+    setIsLoading(true);
     ConfigService.init()
         .then(() => Wallet.updateWallet())
         .catch((e) => {
@@ -315,5 +317,6 @@ window.addEventListener('DOMContentLoaded', function initApp() {
         .finally(() => {
             updateBalance();
             updateOperationsTable();
+            setIsLoading(false);
         });
 });

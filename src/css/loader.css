@@ -1,0 +1,39 @@
+@keyframes wave {
+    0% {
+        top: 0;
+    }
+    50% {
+        top: 1rem;
+    }
+    100% {
+        top: 0;
+    }
+}
+.dots-container {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    left: 0;
+    display: flex;
+    height: 2rem;
+    justify-content: center;
+}
+body:not(.loading) .dots-container {
+    display: none;
+}
+.dots-container__dot {
+    background: var(--primary-color);
+    height: 1rem;
+    width: 1rem;
+    display: block;
+    margin-right: 0.5rem;
+    position: relative;
+    border-radius: 1rem;
+    animation: wave ease 1s infinite;
+}
+.dots-container__dot[data-dot='2'] {
+    animation-delay: 100ms;
+}
+.dots-container__dot[data-dot='3'] {
+    animation-delay: 200ms;
+}

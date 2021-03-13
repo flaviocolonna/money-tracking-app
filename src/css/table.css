@@ -4,6 +4,9 @@
 #table-container.no-data table {
     display: none;
 }
+body.loading #table-container {
+    display: none;
+}
 .fallback-message {
     text-align: center;
     font-size: 3rem;
