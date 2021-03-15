@@ -113,6 +113,43 @@ describe('E2E: testing suite', function () {
         );
         expect(tableElmntChildCount).toBe(1);
     }, 25000);
+    it('Add income operation: open modal, fill form, check table and check balance', async function () {
+        const operationToAdd = mockedStructures.incomeOperation;
+        setGetResponse(operationToAdd);
+        await expect(page).toClick("button[data-test-id='show-modal-btn']");
+        const modalElmnt = await page.$('#modal');
+        const modalElmntDisplay = await page.evaluate(
+            (elmnt) => elmnt.style.display,
+            modalElmnt
+        );
+        expect(modalElmntDisplay).not.toBe('none');
+        await expect(page).toFillForm(
+            "form[data-test-id='add-operation-form']",
+            {
+                amount: operationToAdd.amount.toString(),
+                description: operationToAdd.description,
+            }
+        );
+        await expect(page).toClick("button[data-test-id='add-income-op-btn']");
+        await page.waitForResponse(
+            (res) =>
+                res.url().endsWith(Endpoints.GET_WALLET) && res.status() === 200
+        );
+        const balanceElmnt = await page.$("[data-test-id='balance-box']");
+        const balanceElmntText = await page.evaluate(
+            (elmnt) => elmnt.textContent,
+            balanceElmnt
+        );
+        expect(balanceElmntText).toBe(
+            parseFloat(operationToAdd.amount).toLocaleString()
+        );
+        const tableElmnt = await page.$("tbody[data-test-id='table-body']");
+        const tableElmntChildCount = await page.evaluate(
+            (elmnt) => elmnt.children.length,
+            tableElmnt
+        );
+        expect(tableElmntChildCount).toBe(1);
+    }, 25000);
     it('Search: find a valid operation', async function () {
         const operationToAdd = mockedStructures.outOperation;
         setGetResponse(operationToAdd);
