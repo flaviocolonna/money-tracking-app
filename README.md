@@ -41,13 +41,13 @@ I comandi disponibili sono:
 ## Screenshot della piattaforma
 
 Homepage:
-![Homepage](screenshots/home.png)
+![Homepage](doc-static/home.png)
 
 Popup:
-![Modal add operation](screenshots/popup.png)
+![Modal add operation](doc-static/popup.png)
 
 No operations:
-![No operations table](screenshots/home-no-operations.png)
+![No operations table](doc-static/home-no-operations.png)
 
 ## Troubleshooting
 
