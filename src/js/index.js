@@ -17,6 +17,31 @@ import { SnackbarTypes, WalletSubjects } from './models/enums';
  */
 
 let snackBarTimeout;
+
+/**
+ * Check if the add operation form is valid and trigger the error in case we need.
+ * @name checkFormErrors
+ * @function
+ * @void
+ * @param {HTMLElement} form - The form element of reference
+ * @param {boolean} [forceReset=false] - Set to true to remove all the errors
+ */
+const checkFormErrors = (form, forceReset = false) => {
+    if (!form) {
+        return;
+    }
+    const { amount: amountInput, description: descriptionInput } = form;
+    if (amountInput.checkValidity() || forceReset) {
+        amountInput?.parentNode?.classList.remove('has-error');
+    } else {
+        amountInput?.parentNode?.classList.add('has-error');
+    }
+    if (descriptionInput.checkValidity() || forceReset) {
+        descriptionInput?.parentNode?.classList.remove('has-error');
+    } else {
+        descriptionInput?.parentNode?.classList.add('has-error');
+    }
+};
 /**
  * Invoke it to close the snackbar.
  * @name hideSnackbar
@@ -66,7 +91,8 @@ const addOperation = async function (ev) {
     ev.preventDefault();
     const { target } = ev;
     const formElmnt = target.closest('form');
-    if (!formElmnt) {
+    checkFormErrors(formElmnt);
+    if (!formElmnt || !formElmnt.checkValidity()) {
         return;
     }
     const { amount: amountInput, description: descriptionInput } = formElmnt;
@@ -78,10 +104,12 @@ const addOperation = async function (ev) {
     };
     try {
         await Wallet.addOperation(operation);
+        checkFormErrors(formElmnt);
         formElmnt.reset();
         toggleModal();
         showMessage('Operation added successfully!', SnackbarTypes.SUCCESS);
     } catch (e) {
+        checkFormErrors(formElmnt);
         console.error(e);
         showMessage('Operation not added!', SnackbarTypes.ERROR);
     }
@@ -215,7 +243,8 @@ const updateOperationsTable = function (originalOperations = getOperations()) {
         return;
     }
     tableContainerElement.classList.remove('no-data');
-    operations.reverse().forEach(function (operation) {
+    operations.sort((a, b) => (a.date < b.date ? 1 : -1));
+    operations.forEach(function (operation) {
         tableElement.appendChild(getOperationTableRow(operation));
     });
 };

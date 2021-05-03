@@ -150,6 +150,25 @@ describe('E2E: testing suite', function () {
         );
         expect(tableElmntChildCount).toBe(1);
     }, 25000);
+    it('Add invalid operation: open modal, fill form and check error', async function () {
+        const operationToAdd = mockedStructures.incomeOperation;
+        setGetResponse(operationToAdd);
+        await expect(page).toClick("button[data-test-id='show-modal-btn']");
+        const modalElmnt = await page.$('#modal');
+        const modalElmntDisplay = await page.evaluate(
+            (elmnt) => elmnt.style.display,
+            modalElmnt
+        );
+        expect(modalElmntDisplay).not.toBe('none');
+        await expect(page).toFillForm(
+            "form[data-test-id='add-operation-form']",
+            {
+                amount: operationToAdd.amount.toString(),
+                description: operationToAdd.description,
+            }
+        );
+        await expect(page).toClick("button[data-test-id='add-income-op-btn']");
+    }, 25000);
     it('Search: find a valid operation', async function () {
         const operationToAdd = mockedStructures.outOperation;
         setGetResponse(operationToAdd);
