@@ -1,35 +1,55 @@
 import Wallet from './Wallet';
 import { WalletErrors } from './enums';
+import axios from 'axios';
 const mockedStructures = require('../../../jest/mockedStructures');
 
-const resetWallet = function () {
-    // Reset operations
-    Wallet.getOperations().forEach(({ id }) => Wallet.removeOperation(id));
-};
+jest.mock('axios');
+
 describe('Wallet testing suite', function () {
-    beforeEach(function () {
-        localStorage.clear();
-        resetWallet();
-    });
     it('First instance should be an empty Wallet', function () {
         expect(Wallet.getBalance()).toBe(0);
         expect(Wallet.getOperations().length).toBe(0);
     });
-    it('addOperation: it works with an income operation', function () {
-        Wallet.addOperation(mockedStructures.incomeOperation);
+    it('Update wallet sets correctly balance and operations', async function () {
+        axios.get.mockResolvedValueOnce({
+            data: {
+                balance: 100,
+                operations: [mockedStructures.incomeOperation],
+            },
+        });
+        await Wallet.updateWallet();
+        expect(Wallet.getBalance()).toBe(100);
+        expect(Wallet.getOperations().length).toBe(1);
+    });
+    it('addOperation: it works with an income operation', async function () {
+        axios.get.mockResolvedValueOnce({
+            data: {
+                balance: mockedStructures.incomeOperation.amount,
+                operations: [mockedStructures.incomeOperation],
+            },
+        });
+        axios.post.mockImplementationOnce(() => Promise.resolve());
+        await Wallet.addOperation(mockedStructures.incomeOperation);
         expect(Wallet.getBalance()).toBe(
             mockedStructures.incomeOperation.amount
         );
         expect(Wallet.getOperations().length).toBe(1);
     });
-    it('addOperation: it works with an outcome operation', function () {
-        Wallet.addOperation(mockedStructures.outOperation);
+    it('addOperation: it works with an outcome operation', async function () {
+        axios.get.mockResolvedValueOnce({
+            data: {
+                balance: -mockedStructures.outOperation.amount,
+                operations: [mockedStructures.outOperation],
+            },
+        });
+        axios.post.mockImplementationOnce(() => Promise.resolve());
+        await Wallet.addOperation(mockedStructures.outOperation);
         expect(Wallet.getBalance()).toBe(-mockedStructures.outOperation.amount);
         expect(Wallet.getOperations().length).toBe(1);
     });
-    it('addOperation: it fires an error when adding an invalid operation', function () {
+    it('addOperation: it fires an error when adding an invalid operation', async function () {
         try {
-            Wallet.addOperation(mockedStructures.invalidOperation);
+            await Wallet.addOperation(mockedStructures.invalidOperation);
         } catch (e) {
             expect(e.message).toBe(WalletErrors.INVALID_OPERATION);
         }
@@ -63,13 +83,5 @@ describe('Wallet testing suite', function () {
         );
         const operationsFound = Wallet.findOperation(searchValue);
         expect(operationsFound.length).toBe(1);
-    });
-    it('saveWallet: it saves correctly into the localstorage', function () {
-        Wallet.addOperation(mockedStructures.incomeOperation);
-        const savedWallet = localStorage.getItem('wallet');
-        expect(JSON.parse(savedWallet)).toEqual({
-            balance: Wallet.getBalance(),
-            operations: Wallet.getOperations(),
-        });
     });
 });
