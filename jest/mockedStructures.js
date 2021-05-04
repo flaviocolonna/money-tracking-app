@@ -1,21 +1,21 @@
-const WalletEnums = require("../src/js/models/enums");
+const WalletEnums = require('../src/js/models/enums');
 const incomeOperation = {
-    description: "Salary",
+    description: 'Salary',
     amount: 1000,
-    type: WalletEnums.OpType.IN
-}
+    type: WalletEnums.OpType.IN,
+};
 const outOperation = {
-    description: "Bill",
+    description: 'Bill',
     amount: 100,
-    type: WalletEnums.OpType.OUT
-}
+    type: WalletEnums.OpType.OUT,
+};
 const invalidOperation = {
-    description: "Salary",
+    description: 'Salary',
     amount: 0,
-    type: WalletEnums.OpType.IN
-}
+    type: WalletEnums.OpType.IN,
+};
 module.exports = {
-    incomeOperation: incomeOperation,
-    invalidOperation: invalidOperation,
-    outOperation: outOperation
-}
+    incomeOperation,
+    invalidOperation,
+    outOperation,
+};
