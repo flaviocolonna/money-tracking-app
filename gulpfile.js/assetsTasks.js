@@ -8,7 +8,7 @@ const rename = require('gulp-rename');
 const paths = require('./paths');
 
 const processCSS = function () {
-    const prod = args.prod;
+    const { prod } = args;
     return gulp
         .src(paths.getCSSSrcPath('**/*'))
         .pipe(concat(paths.getOutputCSSFilename()))
@@ -17,7 +17,7 @@ const processCSS = function () {
 };
 
 const watchCSS = function (cb) {
-    const prod = args.prod;
+    const { prod } = args;
     if (prod) {
         return cb();
     }
@@ -35,7 +35,7 @@ const processIcons = function () {
         .pipe(gulp.dest(paths.getDistFolder()));
 };
 const watchIcons = function (cb) {
-    const prod = args.prod;
+    const { prod } = args;
     if (prod) {
         return cb();
     }
