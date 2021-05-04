@@ -38,6 +38,9 @@ I comandi disponibili sono:
 - Test e2e: ``` npm run test:e2e ```
 - Entrambi: ``` npm run test ```
 
+Prima di eseguire i test end to end, sarà necessario creare il bundle di produzione e lanciare il comando ```npm run prod:debug```.
+In questo modo, si avvierà il server su localhost:3000 che permetterà il caricamento della piattaforma. Poi, i test e2e faranno riferimento a quella porta, la 3000, per verificare il corretto funzionamento dell'applicazione.
+
 ## Screenshot della piattaforma
 
 Homepage:
