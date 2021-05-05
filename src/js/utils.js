@@ -23,12 +23,6 @@ async function getWallet() {
     const { data: wallet } = await axios.get(
         `${ConfigService.getApiBaseEndpoint()}/${Endpoints.GET_WALLET}`
     );
-    if (!wallet) {
-        return {
-            balance: 0,
-            operations: [],
-        };
-    }
     return wallet;
 }
 /**
