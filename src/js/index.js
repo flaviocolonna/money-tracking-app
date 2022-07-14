@@ -1,5 +1,4 @@
 import 'core-js/stable';
-import 'regenerator-runtime/runtime';
 import Wallet from './models/Wallet';
 import ConfigService from './services/ConfigService';
 import { SnackbarTypes, WalletSubjects } from './models/enums';
