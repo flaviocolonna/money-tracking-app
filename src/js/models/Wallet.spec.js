@@ -109,7 +109,7 @@ describe('Wallet testing suite', function () {
             axios.post.mockImplementationOnce(() => Promise.resolve());
             await Wallet.addOperation(mockedStructures.outOperation);
             // The id is different from the outOperation id previously added
-            Wallet.removeOperation(242389239);
+            await Wallet.removeOperation(242389239);
         } catch (e) {
             expect(e.message).toBe(WalletErrors.OPERATION_NOT_FOUND);
         }
