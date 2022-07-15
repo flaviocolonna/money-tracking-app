@@ -1,15 +1,16 @@
-const db = require('quick.db');
+const { QuickDB } = require('quick.db');
+const db = new QuickDB();
 const { WalletErrors, OpType } = require('./enums');
 const { isValidOperation } = require('./helpers');
 const WalletDBEntity = 'wallet';
 const initialWalletState = { operations: [], balance: 0 };
 
-const initWallet = () => {
-    if (!db.get(WalletDBEntity)) {
-        db.set(WalletDBEntity, initialWalletState);
+const initWallet = async () => {
+    if (!(await db.get(WalletDBEntity))) {
+        await db.set(WalletDBEntity, initialWalletState);
     }
 };
-const addOperationHandler = function (req, res) {
+const addOperationHandler = async function (req, res) {
     const { body: operationData } = req;
     if (!isValidOperation(operationData)) {
         res.code(400);
@@ -22,25 +23,25 @@ const addOperationHandler = function (req, res) {
         date: currentMS,
         id: currentMS,
     };
-    let balance = db.get(`${WalletDBEntity}.balance`);
+    let balance = await db.get(`${WalletDBEntity}.balance`);
     if (operationToAdd.type === OpType.IN) {
         balance += operationToAdd.amount;
     } else if (operationToAdd.type === OpType.OUT) {
         balance -= operationToAdd.amount;
     }
-    db.push(`${WalletDBEntity}.operations`, operationToAdd);
-    db.set(`${WalletDBEntity}.balance`, balance);
+    await db.push(`${WalletDBEntity}.operations`, operationToAdd);
+    await db.set(`${WalletDBEntity}.balance`, balance);
     res.code(201);
     res.send(operationToAdd);
 };
-const removeOperationHandler = function (req, res) {
+const removeOperationHandler = async function (req, res) {
     const { id } = req.params;
     if (!id) {
         res.code(404);
         res.send();
         return;
     }
-    const operations = db.get(`${WalletDBEntity}.operations`);
+    const operations = await db.get(`${WalletDBEntity}.operations`);
     const foundIndex = operations.findIndex(
         ({ id: operationId }) => operationId === parseInt(id)
     );
@@ -50,21 +51,22 @@ const removeOperationHandler = function (req, res) {
         return;
     }
     const operationToAdd = operations[foundIndex];
-    let balance = db.get(`${WalletDBEntity}.balance`);
+    let balance = await db.get(`${WalletDBEntity}.balance`);
     if (operationToAdd.type === OpType.IN) {
         balance -= operationToAdd.amount;
     } else if (operationToAdd.type === OpType.OUT) {
         balance += operationToAdd.amount;
     }
     operations.splice(foundIndex, 1);
-    db.set(`${WalletDBEntity}.operations`, operations);
-    db.set(`${WalletDBEntity}.balance`, balance);
+    await db.set(`${WalletDBEntity}.operations`, operations);
+    await db.set(`${WalletDBEntity}.balance`, balance);
     res.send();
 };
 
-const getWalletHandler = function (req, res) {
+const getWalletHandler = async function (req, res) {
     const savedWallet =
-        db.get(WalletDBEntity) || db.set(WalletDBEntity, initialWalletState);
+        (await db.get(WalletDBEntity)) ||
+        (await db.set(WalletDBEntity, initialWalletState));
     res.send(savedWallet);
 };
 
